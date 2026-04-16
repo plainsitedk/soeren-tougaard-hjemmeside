@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Søren Tougaard – Kommunikationsrådgiver i Aarhus</title>
+<meta name="description" content="PR-rådgivning, presseservice og kommunikationsstrategi for vækstvirksomheder i Aarhus og hele Danmark."/>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Calistoga&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          'teal':       '#2E6B70',
+          'teal-dark':  '#1D4A4F',
+          'teal-mid':   '#3F8589',
+          'teal-pale':  '#EDF4F4',
+          'teal-muted': '#8BBBBE',
+          'warm':       '#F7F6F3',
+          'ink':        '#1A2426',
+          'sub':        '#4D5E60',
+          'rule':       '#D4DCDD',
+        },
+        fontFamily: {
+          display: ['Calistoga', 'serif'],
+          sans:    ['Inter', 'sans-serif'],
+        },
+        fontSize: {
+          'display-lg': ['clamp(3rem,7vw,6rem)', { lineHeight: '1.0', letterSpacing: '-0.03em' }],
+          'display-md': ['clamp(2rem,4vw,3.5rem)', { lineHeight: '1.05', letterSpacing: '-0.025em' }],
+          'display-sm': ['clamp(1.5rem,3vw,2.25rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    background-color: #F7F6F3;
+    color: #1A2426;
+    -webkit-font-smoothing: antialiased;
+  }
+  .font-display { font-family: 'Calistoga', serif; }
+
+  /* Service row hover */
+  .service-row {
+    border-top: 1px solid #D4DCDD;
+    transition: background-color 180ms ease;
+    cursor: default;
+  }
+  .service-row:last-child { border-bottom: 1px solid #D4DCDD; }
+  .service-row:hover { background-color: #EDF4F4; }
+  .service-row:hover .service-arrow { opacity: 1; transform: translateX(0); color: #2E6B70; }
+  .service-arrow {
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity 180ms ease, transform 180ms ease;
+  }
+
+  /* Nav link underline */
+  .nav-link {
+    position: relative;
+    color: #4D5E60;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: color 150ms ease;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #2E6B70;
+    transition: width 200ms ease;
+  }
+  .nav-link:hover { color: #1A2426; }
+  .nav-link:hover::after { width: 100%; }
+
+  /* CTA button */
+  .btn-primary {
+    background: #2E6B70;
+    color: #EDF4F4;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.625rem 1.5rem;
+    transition: background-color 150ms ease;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #1D4A4F; }
+
+  .btn-ghost {
+    border: 1px solid #D4DCDD;
+    color: #4D5E60;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.625rem 1.5rem;
+    transition: border-color 150ms ease, color 150ms ease;
+    display: inline-block;
+  }
+  .btn-ghost:hover { border-color: #2E6B70; color: #2E6B70; }
+
+  /* Section number label */
+  .section-num {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    color: #2E6B70;
+    text-transform: uppercase;
+  }
+
+  /* Pricing card hover */
+  .price-card {
+    border: 1px solid #D4DCDD;
+    transition: border-color 200ms ease, box-shadow 200ms ease;
+    background: #FFFFFF;
+    padding: 2.5rem;
+  }
+  .price-card:hover {
+    border-color: #3F8589;
+    box-shadow: 0 4px 24px rgba(46,107,112,0.08);
+  }
+  .price-card.featured {
+    border-color: #2E6B70;
+    background: #1D4A4F;
+    color: #EDF4F4;
+  }
+
+  /* Testimonial */
+  .testimonial { border-left: 2px solid #2E6B70; }
+
+  /* Article hover */
+  .article-item { cursor: pointer; }
+  .article-img {
+    background: #E2EBEC;
+    overflow: hidden;
+    aspect-ratio: 16/9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .article-title { transition: color 150ms ease; }
+  .article-item:hover .article-title { color: #2E6B70; }
+
+  /* ── Button interactions ── */
+  .btn-primary, .btn-ghost { cursor: pointer; position: relative; overflow: hidden; }
+  .btn-primary { transition: background-color 150ms ease, transform 120ms ease, box-shadow 150ms ease; }
+  .btn-ghost   { transition: border-color 150ms ease, color 150ms ease, transform 120ms ease; }
+  .btn-primary:hover { box-shadow: 0 4px 20px rgba(46,107,112,0.28); }
+  .btn-primary:active, .btn-ghost:active { transform: scale(0.96); }
+  .btn-primary::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(255,255,255,0);
+    transition: background 150ms ease;
+    pointer-events: none;
+  }
+  .btn-primary:hover::after { background: rgba(255,255,255,0.09); }
+
+  /* ── Service row ── */
+  .service-row { cursor: default; }
+  .service-row:hover { padding-left: 0.75rem; }
+  .service-row { transition: background-color 200ms ease, padding-left 200ms cubic-bezier(0.16,1,0.3,1); }
+
+  /* ── Price card lift ── */
+  .price-card { transition: border-color 200ms ease, box-shadow 200ms ease, transform 220ms cubic-bezier(0.16,1,0.3,1); }
+  .price-card:not(.featured):hover { transform: translateY(-5px); }
+
+  /* ── Article image zoom ── */
+  .article-img-inner {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    transition: transform 420ms cubic-bezier(0.16,1,0.3,1);
+  }
+  .article-item:hover .article-img-inner { transform: scale(1.05); }
+
+  /* ── Scroll reveal ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 550ms cubic-bezier(0.16,1,0.3,1),
+                transform 550ms cubic-bezier(0.16,1,0.3,1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Stagger children ── */
+  .stagger > * {
+    opacity: 0;
+    transform: translateY(18px);
+    transition: opacity 480ms cubic-bezier(0.16,1,0.3,1),
+                transform 480ms cubic-bezier(0.16,1,0.3,1);
+  }
+  .stagger.visible > *:nth-child(1) { opacity:1; transform:translateY(0); transition-delay:  0ms; }
+  .stagger.visible > *:nth-child(2) { opacity:1; transform:translateY(0); transition-delay: 70ms; }
+  .stagger.visible > *:nth-child(3) { opacity:1; transform:translateY(0); transition-delay:140ms; }
+  .stagger.visible > *:nth-child(4) { opacity:1; transform:translateY(0); transition-delay:210ms; }
+  .stagger.visible > *:nth-child(5) { opacity:1; transform:translateY(0); transition-delay:280ms; }
+  .stagger.visible > *:nth-child(6) { opacity:1; transform:translateY(0); transition-delay:350ms; }
+  .stagger.visible > *:nth-child(7) { opacity:1; transform:translateY(0); transition-delay:420ms; }
+
+  /* ── Hero entrance ── */
+  @keyframes heroFadeUp {
+    from { opacity: 0; transform: translateY(36px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .h-enter-1 { animation: heroFadeUp 650ms 80ms  cubic-bezier(0.16,1,0.3,1) both; }
+  .h-enter-2 { animation: heroFadeUp 700ms 160ms cubic-bezier(0.16,1,0.3,1) both; }
+  .h-enter-3 { animation: heroFadeUp 650ms 280ms cubic-bezier(0.16,1,0.3,1) both; }
+  .h-enter-4 { animation: heroFadeUp 600ms 380ms cubic-bezier(0.16,1,0.3,1) both; }
+  .h-enter-5 { animation: heroFadeUp 700ms 200ms cubic-bezier(0.16,1,0.3,1) both; }
+
+  @keyframes navSlideDown {
+    from { opacity: 0; transform: translateY(-14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  header { animation: navSlideDown 500ms 50ms cubic-bezier(0.16,1,0.3,1) both; }
+
+  /* ── Reduced motion ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>
+</head>
+
+<body>
+
+<!-- ─── NAV ─────────────────────────────────────────────────── -->
+<header style="position:fixed;top:0;left:0;right:0;z-index:50;background:rgba(247,246,243,0.92);backdrop-filter:blur(12px);border-bottom:1px solid #D4DCDD;">
+  <nav style="max-width:1200px;margin:0 auto;padding:0 2rem;height:64px;display:flex;align-items:center;justify-content:space-between;">
+    <a href="#" class="font-display" style="font-size:1.125rem;color:#1A2426;letter-spacing:-0.01em;">Søren Tougaard</a>
+    <div style="display:none;gap:2rem;align-items:center;" class="md-nav">
+      <a href="#ydelser" class="nav-link">Ydelser</a>
+      <a href="#om-mig" class="nav-link">Om mig</a>
+      <a href="#nyheder" class="nav-link">Nyheder</a>
+      <a href="#kunder" class="nav-link">Kunder</a>
+      <a href="#kontakt" class="nav-link">Kontakt</a>
+    </div>
+    <a href="#kontakt" class="btn-primary" style="flex-shrink:0;">Book gratis formøde</a>
+  </nav>
+</header>
+
+<!-- Show nav links on md+ -->
+<style>
+  @media (min-width: 768px) {
+    .md-nav { display: flex !important; }
+  }
+</style>
+
+<!-- ─── HERO ──────────────────────────────────────────────────── -->
+<section style="max-width:1200px;margin:0 auto;padding:7rem 2rem 5rem;display:grid;grid-template-columns:1fr;gap:3rem;align-items:center;">
+  <style>
+    @media (min-width:1024px) {
+      .hero-grid { grid-template-columns: 1fr 340px !important; gap: 4rem !important; }
+    }
+  </style>
+  <div class="hero-grid" style="display:grid;grid-template-columns:1fr;gap:3rem;align-items:center;">
+
+    <!-- Text -->
+    <div style="order:1;">
+      <p class="section-num h-enter-1" style="margin-bottom:1.5rem;">Kommunikationsrådgiver · Aarhus</p>
+      <h1 class="font-display h-enter-2" style="font-size:clamp(2.75rem,7vw,5.5rem);line-height:1.0;letter-spacing:-0.03em;color:#1A2426;margin-bottom:1.75rem;">
+        [Din stærke<br/>overskrift her]
+      </h1>
+      <p class="h-enter-3" style="font-size:1.125rem;line-height:1.7;color:#4D5E60;max-width:36rem;margin-bottom:2.5rem;font-weight:300;">
+        Kort beskrivelse af hvem du hjælper, hvad du tilbyder og hvad de opnår. Skrives af Søren.
+      </p>
+      <div class="h-enter-4" style="display:flex;gap:1rem;flex-wrap:wrap;">
+        <a href="#kontakt" class="btn-primary">Book gratis formøde</a>
+        <a href="#ydelser" class="btn-ghost">Se ydelser</a>
+      </div>
+    </div>
+
+    <!-- Avatar -->
+    <div class="h-enter-5" style="order:2;display:flex;justify-content:center;">
+      <div style="width:100%;max-width:320px;aspect-ratio:4/5;background:#E2EBEC;overflow:hidden;flex-shrink:0;">
+        <svg viewBox="0 0 320 400" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+          <rect width="320" height="400" fill="#E2EBEC"/>
+          <circle cx="160" cy="148" r="70" fill="#8BBBBE"/>
+          <ellipse cx="160" cy="370" rx="115" ry="80" fill="#8BBBBE"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── KUNDER LOGOER ─────────────────────────────────────────── -->
+<div style="border-top:1px solid #D4DCDD;border-bottom:1px solid #D4DCDD;padding:2rem 0;">
+  <div style="max-width:1200px;margin:0 auto;padding:0 2rem;display:flex;flex-wrap:wrap;gap:2.5rem;align-items:center;opacity:0.35;">
+    <div style="height:28px;width:100px;background:#1A2426;border-radius:2px;"></div>
+    <div style="height:28px;width:80px;background:#1A2426;border-radius:2px;"></div>
+    <div style="height:28px;width:120px;background:#1A2426;border-radius:2px;"></div>
+    <div style="height:28px;width:90px;background:#1A2426;border-radius:2px;"></div>
+    <div style="height:28px;width:110px;background:#1A2426;border-radius:2px;"></div>
+  </div>
+</div>
+
+<!-- ─── YDELSER ───────────────────────────────────────────────── -->
+<section id="ydelser" style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+  <div style="display:grid;grid-template-columns:1fr;gap:3rem;">
+    <style>@media(min-width:1024px){.ydelser-grid{grid-template-columns:280px 1fr !important;}}</style>
+    <div class="ydelser-grid" style="display:grid;grid-template-columns:1fr;gap:3rem;">
+
+      <!-- Label -->
+      <div style="padding-top:0.5rem;">
+        <p class="section-num">01</p>
+        <h2 class="font-display" style="font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;letter-spacing:-0.02em;margin-top:0.75rem;color:#1A2426;">Ydelser</h2>
+        <p style="margin-top:1rem;font-size:0.9375rem;line-height:1.7;color:#4D5E60;font-weight:300;">Hvad jeg konkret kan hjælpe din virksomhed med.</p>
+      </div>
+
+      <!-- Service list -->
+      <div class="stagger">
+        <!-- 01 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">01</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Kernefortælling</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Kort beskrivelse. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+        <!-- 02 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">02</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Kommunikationsstrategi & -plan</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Kort beskrivelse. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+        <!-- 03 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">03</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Presseservice</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Kort beskrivelse. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+        <!-- 04 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">04</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Ledelsesrådgivning</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Krisekommunikation og forandringskommunikation. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+        <!-- 05 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">05</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Målrettet indhold</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Nyhedsbreve, cases og salgsmateriale. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+        <!-- 06 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">06</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Agenda setting</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Positionering i debatter og medier. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+        <!-- 07 -->
+        <div class="service-row" style="padding:1.5rem 0;display:grid;grid-template-columns:2rem 1fr auto;gap:1.25rem;align-items:start;">
+          <span style="font-size:0.75rem;font-weight:500;color:#8BBBBE;padding-top:0.25rem;">07</span>
+          <div>
+            <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.375rem;">Ekstern kommunikationschef</h3>
+            <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Fast timeaftale — fleksibel og billigere end en fastansættelse. Skrives af Søren.</p>
+          </div>
+          <span class="service-arrow" style="padding-top:0.25rem;font-size:1.125rem;">→</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── OM MIG ─────────────────────────────────────────────────── -->
+<section id="om-mig" style="background:#FFFFFF;border-top:1px solid #D4DCDD;border-bottom:1px solid #D4DCDD;">
+  <div style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+    <style>@media(min-width:1024px){.om-grid{grid-template-columns:340px 1fr !important;}}</style>
+    <div class="om-grid" style="display:grid;grid-template-columns:1fr;gap:4rem;align-items:start;">
+
+      <!-- Avatar -->
+      <div>
+        <div style="width:100%;max-width:320px;aspect-ratio:3/4;background:#E2EBEC;overflow:hidden;">
+          <svg viewBox="0 0 320 427" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+            <rect width="320" height="427" fill="#E2EBEC"/>
+            <circle cx="160" cy="155" r="72" fill="#8BBBBE"/>
+            <ellipse cx="160" cy="400" rx="118" ry="82" fill="#8BBBBE"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Text -->
+      <div style="padding-top:0.5rem;">
+        <p class="section-num">02</p>
+        <h2 class="font-display" style="font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;letter-spacing:-0.02em;margin-top:0.75rem;margin-bottom:2rem;color:#1A2426;">Om mig</h2>
+        <p style="font-size:1.0625rem;line-height:1.75;color:#4D5E60;margin-bottom:1.25rem;font-weight:300;">
+          Intro — hvem er du, hvad er din baggrund og hvad driver dig. Skrives af Søren.
+        </p>
+        <p style="font-size:1.0625rem;line-height:1.75;color:#4D5E60;margin-bottom:2.5rem;font-weight:300;">
+          Hvad gør dig anderledes: baggrund fra kommunikation, journalistik, salg og ledelse. Det kommercielle og kundeorienterede blik. Skrives af Søren.
+        </p>
+        <!-- Stats -->
+        <div style="display:flex;gap:3rem;flex-wrap:wrap;padding-top:2rem;border-top:1px solid #D4DCDD;">
+          <div>
+            <p class="font-display" style="font-size:2.5rem;letter-spacing:-0.03em;color:#2E6B70;">XX+</p>
+            <p style="font-size:0.8125rem;color:#4D5E60;margin-top:0.25rem;font-weight:500;">År i branchen</p>
+          </div>
+          <div>
+            <p class="font-display" style="font-size:2.5rem;letter-spacing:-0.03em;color:#2E6B70;">XX+</p>
+            <p style="font-size:0.8125rem;color:#4D5E60;margin-top:0.25rem;font-weight:500;">Kunder hjulpet</p>
+          </div>
+          <div>
+            <p class="font-display" style="font-size:2.5rem;letter-spacing:-0.03em;color:#2E6B70;">XX+</p>
+            <p style="font-size:0.8125rem;color:#4D5E60;margin-top:0.25rem;font-weight:500;">Medieomtaler</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── PROCES ─────────────────────────────────────────────────── -->
+<section style="background:#1D4A4F;color:#EDF4F4;">
+  <div style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+    <p class="section-num" style="color:#8BBBBE;margin-bottom:0.75rem;">03</p>
+    <h2 class="font-display" style="font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:4rem;color:#EDF4F4;">Sådan arbejder jeg</h2>
+    <style>@media(min-width:768px){.process-grid{grid-template-columns:repeat(3,1fr) !important;}}</style>
+    <div class="process-grid stagger" style="display:grid;grid-template-columns:1fr;gap:3rem;">
+      <div>
+        <p style="font-size:3rem;font-weight:300;color:#3F8589;margin-bottom:1.25rem;line-height:1;letter-spacing:-0.04em;">01</p>
+        <h3 style="font-size:1rem;font-weight:500;color:#EDF4F4;margin-bottom:0.75rem;">Gratis servicetjek</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:#8BBBBE;font-weight:300;">Kort beskrivelse af trin 1. Skrives af Søren.</p>
+      </div>
+      <div>
+        <p style="font-size:3rem;font-weight:300;color:#3F8589;margin-bottom:1.25rem;line-height:1;letter-spacing:-0.04em;">02</p>
+        <h3 style="font-size:1rem;font-weight:500;color:#EDF4F4;margin-bottom:0.75rem;">Strategisk plan</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:#8BBBBE;font-weight:300;">Kort beskrivelse af trin 2. Skrives af Søren.</p>
+      </div>
+      <div>
+        <p style="font-size:3rem;font-weight:300;color:#3F8589;margin-bottom:1.25rem;line-height:1;letter-spacing:-0.04em;">03</p>
+        <h3 style="font-size:1rem;font-weight:500;color:#EDF4F4;margin-bottom:0.75rem;">Eksekvering</h3>
+        <p style="font-size:0.9rem;line-height:1.7;color:#8BBBBE;font-weight:300;">Kort beskrivelse af trin 3. Skrives af Søren.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── PRISER ─────────────────────────────────────────────────── -->
+<section style="background:#FFFFFF;border-bottom:1px solid #D4DCDD;">
+  <div style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+    <p class="section-num" style="margin-bottom:0.75rem;">04</p>
+    <h2 class="font-display" style="font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:3.5rem;color:#1A2426;">Priser</h2>
+    <style>@media(min-width:768px){.price-grid{grid-template-columns:repeat(3,1fr) !important;}}</style>
+    <div class="price-grid stagger" style="display:grid;grid-template-columns:1fr;gap:1.5rem;">
+
+      <div class="price-card">
+        <p style="font-size:0.8125rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#4D5E60;margin-bottom:1.5rem;">Projekter</p>
+        <p class="font-display" style="font-size:2.25rem;letter-spacing:-0.02em;color:#1A2426;">Fra XX.XXX<span style="font-size:1rem;font-family:Inter,sans-serif;"> kr.</span></p>
+        <p style="font-size:0.8125rem;color:#4D5E60;margin-bottom:2rem;">pr. projekt</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem;border-top:1px solid #D4DCDD;padding-top:1.5rem;">
+          <li style="font-size:0.875rem;color:#4D5E60;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#2E6B70;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#4D5E60;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#2E6B70;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#4D5E60;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#2E6B70;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+        </ul>
+      </div>
+
+      <div class="price-card featured">
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1.5rem;">
+          <p style="font-size:0.8125rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#8BBBBE;">Fast samarbejde</p>
+          <span style="font-size:0.75rem;font-weight:500;background:#2E6B70;color:#EDF4F4;padding:0.25rem 0.75rem;letter-spacing:0.04em;">Populær</span>
+        </div>
+        <p class="font-display" style="font-size:2.25rem;letter-spacing:-0.02em;color:#EDF4F4;">XX.XXX<span style="font-size:1rem;font-family:Inter,sans-serif;"> kr.</span></p>
+        <p style="font-size:0.8125rem;color:#8BBBBE;margin-bottom:2rem;">pr. måned</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem;border-top:1px solid rgba(255,255,255,0.12);padding-top:1.5rem;">
+          <li style="font-size:0.875rem;color:#8BBBBE;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#8BBBBE;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#8BBBBE;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#8BBBBE;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#8BBBBE;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#8BBBBE;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#8BBBBE;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#8BBBBE;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+        </ul>
+      </div>
+
+      <div class="price-card">
+        <p style="font-size:0.8125rem;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;color:#4D5E60;margin-bottom:1.5rem;">Timebasis</p>
+        <p class="font-display" style="font-size:2.25rem;letter-spacing:-0.02em;color:#1A2426;">XXX<span style="font-size:1rem;font-family:Inter,sans-serif;"> kr.</span></p>
+        <p style="font-size:0.8125rem;color:#4D5E60;margin-bottom:2rem;">pr. time</p>
+        <ul style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem;border-top:1px solid #D4DCDD;padding-top:1.5rem;">
+          <li style="font-size:0.875rem;color:#4D5E60;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#2E6B70;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#4D5E60;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#2E6B70;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+          <li style="font-size:0.875rem;color:#4D5E60;font-weight:300;display:flex;gap:0.75rem;"><span style="color:#2E6B70;flex-shrink:0;">—</span>Ydelse · skrives af Søren</li>
+        </ul>
+      </div>
+
+    </div>
+    <p style="font-size:0.8125rem;color:#4D5E60;margin-top:1.5rem;">Alle priser er ekskl. moms. Tilpassede aftaler er mulige.</p>
+  </div>
+</section>
+
+<!-- ─── KUNDER & TESTIMONIALS ─────────────────────────────────── -->
+<section id="kunder" style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+  <p class="section-num" style="margin-bottom:0.75rem;">05</p>
+  <h2 class="font-display" style="font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;letter-spacing:-0.02em;margin-bottom:3.5rem;color:#1A2426;">Tidligere kunder</h2>
+  <style>@media(min-width:768px){.testimonial-grid{grid-template-columns:1fr 1fr !important;}}</style>
+  <div class="testimonial-grid stagger" style="display:grid;grid-template-columns:1fr;gap:2.5rem;">
+
+    <div class="testimonial" style="padding-left:1.5rem;">
+      <p style="font-size:1.125rem;line-height:1.75;color:#1A2426;margin-bottom:1.5rem;font-style:italic;font-weight:300;">
+        "[Citat fra kunde. Skrives af Søren.]"
+      </p>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div style="width:40px;height:40px;border-radius:50%;background:#E2EBEC;overflow:hidden;flex-shrink:0;">
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+            <rect width="40" height="40" fill="#E2EBEC"/>
+            <circle cx="20" cy="15" r="8" fill="#8BBBBE"/>
+            <ellipse cx="20" cy="38" rx="13" ry="9" fill="#8BBBBE"/>
+          </svg>
+        </div>
+        <div>
+          <p style="font-size:0.875rem;font-weight:500;color:#1A2426;">Navn Efternavn</p>
+          <p style="font-size:0.8125rem;color:#4D5E60;">Titel, Virksomhed</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial" style="padding-left:1.5rem;">
+      <p style="font-size:1.125rem;line-height:1.75;color:#1A2426;margin-bottom:1.5rem;font-style:italic;font-weight:300;">
+        "[Citat fra kunde. Skrives af Søren.]"
+      </p>
+      <div style="display:flex;align-items:center;gap:1rem;">
+        <div style="width:40px;height:40px;border-radius:50%;background:#E2EBEC;overflow:hidden;flex-shrink:0;">
+          <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg" width="40" height="40">
+            <rect width="40" height="40" fill="#E2EBEC"/>
+            <circle cx="20" cy="15" r="8" fill="#8BBBBE"/>
+            <ellipse cx="20" cy="38" rx="13" ry="9" fill="#8BBBBE"/>
+          </svg>
+        </div>
+        <div>
+          <p style="font-size:0.875rem;font-weight:500;color:#1A2426;">Navn Efternavn</p>
+          <p style="font-size:0.8125rem;color:#4D5E60;">Titel, Virksomhed</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── NYHEDER ────────────────────────────────────────────────── -->
+<section id="nyheder" style="background:#FFFFFF;border-top:1px solid #D4DCDD;border-bottom:1px solid #D4DCDD;">
+  <div style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+    <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:3.5rem;flex-wrap:wrap;gap:1rem;">
+      <div>
+        <p class="section-num" style="margin-bottom:0.75rem;">06</p>
+        <h2 class="font-display" style="font-size:clamp(1.5rem,3vw,2.25rem);line-height:1.1;letter-spacing:-0.02em;color:#1A2426;">Nyheder</h2>
+      </div>
+      <a href="#" style="font-size:0.875rem;font-weight:500;color:#2E6B70;display:flex;align-items:center;gap:0.375rem;transition:gap 150ms ease;" onmouseover="this.style.gap='0.625rem'" onmouseout="this.style.gap='0.375rem'">
+        Se alle nyheder <span>→</span>
+      </a>
+    </div>
+    <style>@media(min-width:768px){.news-grid{grid-template-columns:repeat(3,1fr) !important;}}</style>
+    <div class="news-grid stagger" style="display:grid;grid-template-columns:1fr;gap:2.5rem;">
+
+      <article class="article-item">
+        <div class="article-img" style="margin-bottom:1.25rem;">
+          <div class="article-img-inner">
+            <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#8BBBBE;">Artikel</p>
+          </div>
+        </div>
+        <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#2E6B70;margin-bottom:0.625rem;">Kategori</p>
+        <h3 class="article-title" style="font-size:1.0625rem;font-weight:500;line-height:1.45;color:#1A2426;margin-bottom:0.625rem;">[Artiklens overskrift — skrives af Søren]</h3>
+        <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Kort manchet. Skrives af Søren.</p>
+      </article>
+
+      <article class="article-item">
+        <div class="article-img" style="margin-bottom:1.25rem;">
+          <div class="article-img-inner">
+            <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#8BBBBE;">Artikel</p>
+          </div>
+        </div>
+        <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#2E6B70;margin-bottom:0.625rem;">Kategori</p>
+        <h3 class="article-title" style="font-size:1.0625rem;font-weight:500;line-height:1.45;color:#1A2426;margin-bottom:0.625rem;">[Artiklens overskrift — skrives af Søren]</h3>
+        <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Kort manchet. Skrives af Søren.</p>
+      </article>
+
+      <article class="article-item">
+        <div class="article-img" style="margin-bottom:1.25rem;">
+          <div class="article-img-inner">
+            <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.1em;text-transform:uppercase;color:#8BBBBE;">Artikel</p>
+          </div>
+        </div>
+        <p style="font-size:0.75rem;font-weight:500;letter-spacing:0.08em;text-transform:uppercase;color:#2E6B70;margin-bottom:0.625rem;">Kategori</p>
+        <h3 class="article-title" style="font-size:1.0625rem;font-weight:500;line-height:1.45;color:#1A2426;margin-bottom:0.625rem;">[Artiklens overskrift — skrives af Søren]</h3>
+        <p style="font-size:0.875rem;line-height:1.65;color:#4D5E60;font-weight:300;">Kort manchet. Skrives af Søren.</p>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ─── KONTAKT ────────────────────────────────────────────────── -->
+<section id="kontakt" style="max-width:1200px;margin:0 auto;padding:6rem 2rem;">
+  <style>@media(min-width:1024px){.kontakt-grid{grid-template-columns:1fr 420px !important;}}</style>
+  <div class="kontakt-grid" style="display:grid;grid-template-columns:1fr;gap:4rem;align-items:start;">
+
+    <!-- Left -->
+    <div>
+      <p class="section-num" style="margin-bottom:0.75rem;">07</p>
+      <h2 class="font-display" style="font-size:clamp(1.75rem,4vw,3rem);line-height:1.05;letter-spacing:-0.025em;margin-bottom:1.5rem;color:#1A2426;">[Klar til at komme i gang?]</h2>
+      <p style="font-size:1.0625rem;line-height:1.75;color:#4D5E60;max-width:32rem;margin-bottom:3rem;font-weight:300;">
+        Kort tekst der opfordrer til handling. Skrives af Søren.
+      </p>
+
+      <!-- Contact -->
+      <div style="display:flex;align-items:center;gap:1.25rem;margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid #D4DCDD;">
+        <div style="width:56px;height:56px;border-radius:50%;background:#E2EBEC;overflow:hidden;flex-shrink:0;">
+          <svg viewBox="0 0 56 56" xmlns="http://www.w3.org/2000/svg" width="56" height="56">
+            <rect width="56" height="56" fill="#E2EBEC"/>
+            <circle cx="28" cy="21" r="11" fill="#8BBBBE"/>
+            <ellipse cx="28" cy="53" rx="18" ry="12" fill="#8BBBBE"/>
+          </svg>
+        </div>
+        <div>
+          <p style="font-size:0.9375rem;font-weight:500;color:#1A2426;margin-bottom:0.25rem;">Søren Tougaard</p>
+          <a href="tel:+4500000000" style="font-size:0.875rem;color:#2E6B70;display:block;font-weight:400;">+45 XX XX XX XX</a>
+          <a href="mailto:søren@example.dk" style="font-size:0.875rem;color:#2E6B70;display:block;font-weight:400;">søren@example.dk</a>
+        </div>
+      </div>
+
+      <!-- Newsletter -->
+      <div>
+        <h4 style="font-size:0.9375rem;font-weight:500;color:#1A2426;margin-bottom:0.5rem;">Nyhedsbrev</h4>
+        <p style="font-size:0.875rem;color:#4D5E60;margin-bottom:1.25rem;font-weight:300;">Kort beskrivelse af nyhedsbrevet. Skrives af Søren.</p>
+        <div style="border:1px dashed #D4DCDD;padding:2rem;text-align:center;">
+          <p style="font-size:0.8125rem;color:#8BBBBE;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Nyhedsbrev-integration</p>
+          <p style="font-size:0.75rem;color:#8BBBBE;margin-top:0.375rem;">F.eks. Mailchimp eller Beehiiv</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Booking -->
+    <div style="background:#FFFFFF;border:1px solid #D4DCDD;padding:2.5rem;">
+      <h3 style="font-size:1.0625rem;font-weight:500;color:#1A2426;margin-bottom:0.5rem;">Book et møde</h3>
+      <p style="font-size:0.875rem;color:#4D5E60;margin-bottom:2rem;font-weight:300;">Vælg et ledigt tidspunkt nedenfor.</p>
+      <div style="aspect-ratio:4/5;border:1px dashed #D4DCDD;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;">
+        <p style="font-size:0.8125rem;color:#8BBBBE;font-weight:500;letter-spacing:0.06em;text-transform:uppercase;">Booking-integration</p>
+        <p style="font-size:0.75rem;color:#8BBBBE;margin-top:0.375rem;">F.eks. Calendly</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── FOOTER ─────────────────────────────────────────────────── -->
+<footer style="border-top:1px solid #D4DCDD;background:#F7F6F3;">
+  <div style="max-width:1200px;margin:0 auto;padding:3rem 2rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:2rem;">
+    <div>
+      <p class="font-display" style="font-size:1rem;color:#1A2426;margin-bottom:0.5rem;">Søren Tougaard</p>
+      <p style="font-size:0.8125rem;color:#4D5E60;">Kommunikationsrådgiver · Aarhus</p>
+    </div>
+    <div style="display:flex;gap:2rem;flex-wrap:wrap;align-items:center;">
+      <a href="#" style="font-size:0.8125rem;color:#4D5E60;transition:color 150ms ease;" onmouseover="this.style.color='#2E6B70'" onmouseout="this.style.color='#4D5E60'">LinkedIn</a>
+      <a href="#" style="font-size:0.8125rem;color:#4D5E60;transition:color 150ms ease;" onmouseover="this.style.color='#2E6B70'" onmouseout="this.style.color='#4D5E60'">Privatlivspolitik</a>
+      <p style="font-size:0.8125rem;color:#8BBBBE;">CVR: XXXXXXXX</p>
+      <p style="font-size:0.8125rem;color:#8BBBBE;">© 2026 Søren Tougaard</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // ── Intersection observer for .reveal and .stagger ──
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -32px 0px' });
+
+  // Add .reveal to all top-level section inner wrappers + logo strip
+  document.querySelectorAll([
+    '#ydelser > div',
+    '#om-mig > div > div',
+    '#kunder > p.section-num',
+    '#kunder > h2',
+    '#kunder > .testimonial-grid',
+    '#nyheder > div > div:first-child',
+    '#nyheder > div > .news-grid',
+    '#kontakt > div',
+    'footer > div',
+  ].join(',')).forEach(el => {
+    el.classList.add('reveal');
+    io.observe(el);
+  });
+
+  // Logo strip
+  const logoStrip = document.querySelector('body > div');
+  if (logoStrip) { logoStrip.classList.add('reveal'); io.observe(logoStrip); }
+
+  // Process section heading
+  document.querySelectorAll('section > div > p.section-num, section > div > h2').forEach(el => {
+    if (!el.closest('#ydelser') && !el.closest('#om-mig') && !el.closest('#kunder') && !el.closest('#nyheder') && !el.closest('#kontakt')) {
+      el.classList.add('reveal');
+      io.observe(el);
+    }
+  });
+
+  // All .stagger elements
+  document.querySelectorAll('.stagger').forEach(el => io.observe(el));
+
+  // Om mig section reveal
+  const omMigSection = document.querySelector('#om-mig');
+  if (omMigSection) {
+    const grid = omMigSection.querySelector('.om-grid');
+    if (grid) { grid.classList.add('reveal'); io.observe(grid); }
+  }
+
+  // Priser heading
+  document.querySelectorAll('section').forEach(section => {
+    if (section.querySelector('.price-grid')) {
+      const heading = section.querySelector('h2');
+      if (heading) { heading.classList.add('reveal'); io.observe(heading); }
+    }
+    if (section.querySelector('.process-grid')) {
+      const heading = section.querySelector('h2');
+      if (heading) { heading.classList.add('reveal'); io.observe(heading); }
+    }
+  });
+})();
+</script>
+</body>
+</html>
