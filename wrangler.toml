@@ -1,5 +1,0 @@
-name = "soren-tougaard"
-compatibility_date = "2026-04-15"
-
-[assets]
-directory = "."
