@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ydelser og priser – Tougaard Kommunikation</title>
+<meta name="description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, pressearbejde og mere." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:ital,wght@0,300..700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F6F4ED; --paper-raised:#FFFDF8; --paper-sunken:#EFECE2;
+    --line:#DDD9CB; --ink:#16180F; --ink-body:#3C3E33;
+    --muted:#5A5C50; --muted-light:#8A8A7C;
+    --clay:#C05A2B; --olive:#4C5A34;
+  }
+  * { box-sizing: border-box; }
+  html,body{ margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
+  a{ color:var(--clay); text-decoration:none; border-bottom:1px solid rgba(192,90,43,0.35); }
+  a:hover{ color:var(--ink); border-bottom-color:var(--ink); }
+  ::selection{ background:var(--clay); color:var(--paper); }
+  h1,h2,h3{ font-family:'Libre Baskerville',Georgia,serif; font-weight:400; margin:0; letter-spacing:-0.02em; text-wrap:pretty; }
+  p{ margin:0; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+  a:focus-visible{ outline:2px solid var(--clay); outline-offset:2px; }
+
+  .site{ border:1px solid var(--line); background:var(--paper); }
+  .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 44px; border-bottom:1px solid var(--line); position:sticky; top:0; background:rgba(246,244,237,0.94); backdrop-filter:blur(8px); z-index:10; }
+  .wordmark{ font-family:'Libre Baskerville',Georgia,serif; font-size:21px; letter-spacing:-0.01em; }
+  .wordmark .dot{ color:var(--clay); }
+  .nav{ display:flex; gap:30px; align-items:center; }
+  .nav a:not(.btn){ font-size:15px; color:var(--ink-body); border-bottom:none; font-family:Karla,sans-serif; }
+  .nav a:not(.btn):hover{ color:var(--clay); }
+  .btn{ font-family:Karla,sans-serif; font-weight:600; border-radius:2px; cursor:pointer; transition:background .22s ease, color .22s ease, border-color .22s ease; display:inline-block; }
+  .btn-dark{ font-size:14px; padding:11px 20px; background:var(--ink); color:var(--paper-raised); border:1px solid var(--ink); }
+  .btn-dark:hover{ background:var(--clay); border-color:var(--clay); }
+  .btn-primary{ font-size:15px; padding:15px 28px; background:var(--clay); color:var(--paper-raised); border:1px solid var(--clay); }
+  .btn-primary:hover{ background:var(--ink); border-color:var(--ink); }
+
+  .page-head{ padding:76px 44px 44px; max-width:70ch; }
+  .eyebrow{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay); margin-bottom:18px; }
+  .page-head h1{ font-size:clamp(2rem,4vw,2.75rem); line-height:1.14; margin-bottom:18px; }
+  .page-head p{ font-size:17px; line-height:1.65; color:var(--ink-body); }
+
+  .ydelse{ border-top:1px solid var(--line); padding:52px 44px; display:grid; grid-template-columns:210px 1fr; gap:48px; }
+  .ydelse-num{ font-size:11px; color:var(--clay); margin-bottom:10px; }
+  .ydelse h2{ font-size:24px; line-height:1.25; }
+  .ydelse-body p{ font-size:16px; line-height:1.75; color:var(--ink-body); margin-bottom:14px; max-width:64ch; }
+  .ydelse-body p:last-of-type{ margin-bottom:0; }
+  .ydelse-cta{ margin-top:18px; }
+
+  .priser{ border-top:1px solid var(--line); background:var(--paper-sunken); padding:76px 44px; }
+  .priser h2{ font-size:clamp(1.5rem,3vw,2.0625rem); margin-bottom:14px; }
+  .priser > p{ font-size:16px; line-height:1.6; color:var(--ink-body); max-width:60ch; margin-bottom:40px; }
+  .pris-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .pris-card{ border:1px solid var(--line); background:var(--paper-raised); padding:26px 24px; }
+  .pris-titel{ font-size:15px; font-weight:600; margin-bottom:8px; }
+  .pris-sub{ font-size:13px; color:var(--muted); margin-bottom:16px; }
+  .pris-tal{ font-family:'Libre Baskerville',Georgia,serif; font-size:26px; }
+
+  .kontakt-cta{ border-top:1px solid var(--line); background:var(--ink); color:var(--paper); padding:76px 44px; text-align:center; }
+  .kontakt-cta h2{ color:var(--paper); font-size:clamp(1.5rem,3vw,2.0625rem); margin-bottom:20px; }
+
+  .footer{ border-top:1px solid var(--line); padding:34px 44px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; }
+  .footer-word{ font-family:'Libre Baskerville',Georgia,serif; font-size:18px; }
+  .footer-meta{ font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted-light); display:flex; gap:26px; flex-wrap:wrap; }
+
+  @media (max-width:900px){
+    .topbar, .page-head, .ydelse, .priser, .kontakt-cta, .footer{ padding-left:20px; padding-right:20px; }
+    .ydelse{ grid-template-columns:1fr; gap:16px; }
+    .pris-grid{ grid-template-columns:1fr; }
+    .nav a:not(.btn){ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="site">
+
+  <div class="topbar">
+    <a href="index.html" class="wordmark" style="border-bottom:none;color:var(--ink);">Tougaard Kommunikation</a>
+    <div class="nav">
+      <a href="index.html#om-mig">Om mig</a>
+      <a href="index.html#kontakt">Kontakt</a>
+      <a href="index.html#kontakt" class="btn btn-dark">Skriv til mig</a>
+    </div>
+  </div>
+
+  <div class="page-head">
+    <div class="eyebrow mono">Ydelser og priser</div>
+    <h1>Sæt kursen og skab sammenhæng</h1>
+    <p>Jeg leverer målrettede kommunikationsløsninger og modtagerorienterede fortællinger om virksomhedens formål, milepæle og den forskel, I gør for kunder og samfund. Historier, der skaber tillid, tiltrækker nye kunder og udvider jeres forretningsforbindelser.</p>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">01</div>
+      <h2>Kernefortælling</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Mangler I en kernefortælling? Eller er den eksisterende blevet rusten? Jeg hjælper jer med at gøre jeres 'hvorfor' helt skarp. Kommunikation uden en kernefortælling svarer til at gå med bind for øjnene.</p>
+      <p>Med en kernefortælling forklarer I kunder og omverden, hvorfor I eksisterer, hvad der er jeres formål, værdier og målsætninger for fremtiden. Kernefortællingen er jeres fælles identitet og en platform, der binder fortid, nutid og fremtid sammen og kort beskriver, hvordan I adskiller jer fra andre, og hvorfor kunder skal vælge lige netop jer.</p>
+      <p>Arbejdet med en skarp kernefortælling foregår over en kort session, hvor jeg interviewer ledere, udvalgte medarbejdere og om muligt enkelte kunder for at sikre, at den bliver virksomhedens fælles identitet. Jeres input bliver i første omgang samlet til flere forslag, som sendes til en endelig gennemgang og finjusteres, inden kernefortællingen falder helt på plads.</p>
+      <div class="ydelse-cta"><a href="index.html#kontakt">Book et gratis møde</a></div>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">02</div>
+      <h2>Kommunikationsstrategi og plan</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Savner du en rød tråd og struktur i jeres kommunikationsindsats? Bliver jeres strategi ikke fulgt op af klare budskaber til jeres interessenter? Så mangler I formentlig en strategi.</p>
+      <p>Med en kommunikationsstrategi får I en klar kurs på kommunikationen, der understøtter jeres forretningsmål. Den sigter efter, hvad I vil opnå med kommunikationsindsatsen. Og den udstikker jeres to-tre mærkesager, som I vil arbejde for at positionere jer på.</p>
+      <p>Strategien sikrer sammenhæng på tværs af alle kanaler, og at jeres budskaber rammer jeres målgrupper de rette steder. Den bliver nedbrudt i en kommunikationsplan, der sikrer overblik over, hvad der skal kommunikeres hvornår, og hvem der har ansvaret. Et årshjul med temaer fungerer som motoren for målrettet indhold på sociale medier, nyhedsbreve, web, intranet, presse mv.</p>
+      <p>En kommunikationsstrategi omfatter flere faser og starter med en grundig foranalyse med interview af ledelse, nøglepersoner og udpegede kunder samt analyse af nuværende kanaler, markedet og konkurrenter.</p>
+      <div class="ydelse-cta"><a href="index.html#kontakt">Book et gratis formøde</a></div>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">03</div>
+      <h2>Ledelsesrådgivning og krisestyring</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Har du og din bestyrelse truffet et afgørende valg, som du snart skal kommunikere ud i organisationen, til jeres kunder og øvrige samarbejdspartnere? Måske har I opkøbt en konkurrent, er selv blevet opkøbt, må foretage organisationsændringer eller fremlægger et regnskab langt fra det forventede.</p>
+      <p>Så kan det være en rigtig god idé at få eksterne øjne på, hvordan du bedst timer og kommunikerer dine budskaber. Som erfaren ekstern kommunikatør agerer jeg din betroede rådgiver og zoomer ind på de kritiske spørgsmål, der melder sig i processen.</p>
+      <p>I krisestyring gælder det altid om at være forberedt. Men har I selv hånd om, hvilke kriser der hurtigt kan opstå i jeres organisation? Hvordan håndterer I situationen internt og ud mod jeres omverden? Hvilke spørgsmål og dilemmaer træder frem?</p>
+      <p>Jeg kridter banen op med to-tre virkelighedsnære cases, der kan opstå i din virksomhed. Herefter afholder vi en session, hvor vi gennemgår scenarierne, og hvor I i ledelsesgruppen diskuterer, hvordan I håndterer sagerne. Ønsker I det, får vi en øvet ekstern journalist til at stille jer kritiske spørgsmål.</p>
+      <div class="ydelse-cta"><a href="index.html#kontakt">Hør mere</a></div>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">04</div>
+      <h2>Digitalt indhold</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Med +10.000 erhvervsartikler i bagagen hjælper jeg jer med at udvikle og producere indhold, der skaber høj værdi for modtageren.</p>
+      <p>Det er indhold, der giver modtageren ny indsigt og viden om jeres forretning. Det kan f.eks. være indhold til nyhedsbreve, kundecases, sociale medier, salgsmateriale, medarbejderportal eller årsrapporter.</p>
+      <p>Indholdet tager altid udgangspunkt i, hvad der er jeres formål og kernebudskaber, så indholdet ikke stritter i alle mulige retninger men har en rød tråd.</p>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">05</div>
+      <h2>Mærkesager</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Overser I en gylden mulighed for at gøre en forskel og positionere jer på nogle af samfundets allervigtigste dagsordener?</p>
+      <p>For mange SMV'er og rådgivervirksomheder er det ikke nok blot at fokusere på den økonomiske bundlinje. Virksomheden skal have et højere formål end at tjene penge.</p>
+      <p>Jeg hjælper med at identificere, hvor jeres virksomhed kan gøre en forskel. Måske er det inden for socialt ansvar, klima, det rummelige arbejdsmarked eller et helt andet felt, som ligger i tråd med virksomhedens værdier. Jeg hjælper desuden med at skabe opmærksomhed omkring jeres mærkesager. Det kan være i kommentarer, indlæg, pitch til medier eller som oplæg i debatter.</p>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">06</div>
+      <h2>Pressearbejde</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Pressemeddelelsen er bestemt ikke død. Men håndværket skal gøres ordentligt. Jeg er naturligvis klar i spyttet, hvis din historie ikke har pressepotentiale.</p>
+      <p>Som journalist og redaktør har jeg kylet tusindvis af pressemeddelelser direkte i skraldespanden — typisk fordi de var alt for salgsorienterede og slet ikke ramte den rigtige målgruppe. Som kommunikatør har jeg skrevet omkring 50 i tæt samarbejde med topledelsen, hvoraf flere er gået medie-viralt og har skabt stor PR-værdi.</p>
+      <p>Når I skal have skrevet en pressemeddelelse, kender jeg nyhedskriterierne i søvne og hvert et hjørne af det danske medielandskab. Jeg er vant til at pitche historier direkte til de mest relevante medier og bygge relationer op.</p>
+      <p>Som en ekstra service tilbyder jeg at være pressevagt for både private og offentlige virksomheder i weekender, så dine medarbejdere kan holde helt fri. En pressemeddelelse fås til en fast pris. Den sendes til udvalgte medier. Med i prisen følger pitch og opfølgning.</p>
+      <p>Foto indgår ikke i prisen. Har du behov for en fotograf til portrætter og virksomhedsportræt, hjælper jeg dig gerne med at finde den rigtige.</p>
+      <div class="ydelse-cta"><a href="index.html#kontakt">Kontakt mig for mere info</a></div>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">07</div>
+      <h2>Hyr en erfaren kommunikatør</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Er ressourcerne få eller opgaverne mange i jeres kommunikationsteam? Så hyr mig til en fast aftalt pris efter behov. Det kan være på uge- eller månedsbasis.</p>
+      <p>Det giver jer stor fleksibilitet og en kommunikatør ved hånden, der hurtigt finder de gode historier, eksekverer på jeres strategi og som har erfaring i at rådgive ledelsen.</p>
+      <div class="ydelse-cta"><a href="index.html#kontakt">Hør mere om muligheden</a></div>
+    </div>
+  </div>
+
+  <div class="ydelse">
+    <div>
+      <div class="ydelse-num mono">08</div>
+      <h2>Få viden om jeres indhold</h2>
+    </div>
+    <div class="ydelse-body">
+      <p>Afspejler jeres indhold, hvem der er jeres vigtigste interessent? Er der andre interessenter, I slet ikke rammer?</p>
+      <p>Før et samarbejde udarbejder jeg altid en analyse af jeres indhold på sociale medier, web, nyhedsbreve, presse mv. Analysen går et år tilbage. Det gør jeg for at blive klogere på jeres historier og budskaber. Analysen giver jer en række gode råd til at optimere jeres kommunikationsindsats.</p>
+      <p>Analysen er gratis ved indgåelse af et længerevarende samarbejde. Den kan også købes, uden vi indgår samarbejde, og koster 7.995 kr. ex. moms.</p>
+      <div class="ydelse-cta"><a href="index.html#kontakt">Bestil indholdstjek</a></div>
+    </div>
+  </div>
+
+  <div class="priser">
+    <h2>Priser</h2>
+    <p>Jeg skaber værdi for din forretning, der langt overgår mine priser.<br />Alle priser er ekskl. moms.<br /><s>Tilpassede aftaler er mulige.</s></p>
+    <div class="pris-grid">
+      <div class="pris-card">
+        <div class="pris-titel">Enkelt opgave</div>
+        <div class="pris-sub">F.eks. til kundecase eller pressemeddelelse</div>
+        <div class="pris-tal">1.300 kr. <span class="mono" style="font-size:14px;color:var(--muted);">i timen</span></div>
+      </div>
+      <div class="pris-card">
+        <div class="pris-titel">10 timer</div>
+        <div class="pris-sub">F.eks. til nyhedsbrev</div>
+        <div class="pris-tal">12.000 kr.</div>
+      </div>
+      <div class="pris-card">
+        <div class="pris-titel">20 timer</div>
+        <div class="pris-sub">F.eks. til løbende driftsopgaver og rådgivning</div>
+        <div class="pris-tal">20.000 kr.</div>
+      </div>
+      <div class="pris-card">
+        <div class="pris-titel">Ekstern kommunikationskonsulent</div>
+        <div class="pris-sub">Fast tilknytning</div>
+        <div class="pris-tal">8.500 kr. <span class="mono" style="font-size:13px;color:var(--muted);">rabat ved månedsaftale</span></div>
+      </div>
+      <div class="pris-card">
+        <div class="pris-titel">Udviklingsprojekt</div>
+        <div class="pris-sub">F.eks. kernefortælling eller strategi</div>
+        <div class="pris-tal">Fast pris</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="kontakt-cta">
+    <h2>Skal vi tage en snak?</h2>
+    <a href="index.html#kontakt" class="btn btn-primary">Book et gratis møde</a>
+  </div>
+
+  <div class="footer">
+    <a href="index.html" class="footer-word" style="border-bottom:none;color:var(--ink);">Søren<span class="dot" style="color:var(--clay);">.</span></a>
+    <div class="footer-meta mono">
+      <span>Tougaard Kommunikation</span><span>LinkedIn</span>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
