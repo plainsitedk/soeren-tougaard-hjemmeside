@@ -148,9 +148,13 @@
     .mobile-menu.open{ display:flex; }
     .mobile-menu a{ padding:12px 0; font-size:16px; color:var(--ink-body); border-bottom:1px solid var(--line); }
     .mobile-menu a:last-child{ border-bottom:none; }
-    .hero{ grid-template-columns:1fr; }
-    .hero-text{ border-right:none; padding-top:56px; padding-bottom:56px; }
-    .hero h1{ font-size:2.25rem; }
+    .hero{ grid-template-columns:1fr; min-height:0; }
+    .hero-text{ border-right:none; padding-top:32px; padding-bottom:44px; justify-content:flex-start; }
+    .hero h1{ font-size:1.75rem; margin-bottom:14px; }
+    .hero .lead{ font-size:15.5px; margin-bottom:14px; }
+    .hero-list{ font-size:13.5px; margin-bottom:20px; }
+    .hero-img{ order:-1; height:340px; min-height:340px; }
+    .hero-img img{ min-height:340px; }
     .card-grid, .case-grid, .highlights, .kontakt{ grid-template-columns:1fr; }
     .case-img{ order:-1; height:220px; }
   }
