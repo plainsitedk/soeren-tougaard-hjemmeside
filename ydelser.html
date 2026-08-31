@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Ydelser og priser – Tougaard Kommunikation</title>
 <meta name="description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, pressearbejde og mere." />
+<meta name="theme-color" content="#F6F4ED" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Ydelser og priser – Tougaard Kommunikation" />
+<meta property="og:description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, pressearbejde og mere." />
+<meta property="og:locale" content="da_DK" />
+<meta name="twitter:card" content="summary" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2316180F'/%3E%3Ccircle cx='72' cy='68' r='9' fill='%23C05A2B'/%3E%3Ctext x='30' y='68' font-family='Georgia,serif' font-size='58' fill='%23F6F4ED'%3ET%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:ital,wght@0,300..700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
@@ -16,7 +23,11 @@
     --clay:#C05A2B; --olive:#4C5A34;
   }
   * { box-sizing: border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
   html,body{ margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
+  .skip-link{ position:absolute; top:-100px; left:12px; background:var(--ink); color:var(--paper-raised); padding:12px 18px; z-index:100; border-radius:2px; font-size:14px; font-weight:600; transition:top .2s ease; }
+  .skip-link:focus{ top:12px; }
   a{ color:var(--clay); text-decoration:none; border-bottom:1px solid rgba(192,90,43,0.35); }
   a:hover{ color:var(--ink); border-bottom-color:var(--ink); }
   ::selection{ background:var(--clay); color:var(--paper); }
@@ -107,6 +118,8 @@
 </head>
 <body>
 
+<a href="#main" class="skip-link">Spring til indhold</a>
+
 <div class="site">
 
   <div class="topbar">
@@ -124,7 +137,7 @@
     </div>
   </div>
 
-  <div class="page-head reveal">
+  <div id="main" class="page-head reveal">
     <div class="eyebrow mono">Ydelser og priser</div>
     <h1>Sæt kursen og skab sammenhæng</h1>
     <p>Jeg leverer målrettede kommunikationsløsninger og modtagerorienterede fortællinger om virksomhedens formål, milepæle og den forskel, I gør for kunder og samfund. Historier, der skaber tillid, tiltrækker nye kunder og udvider jeres forretningsforbindelser.</p>

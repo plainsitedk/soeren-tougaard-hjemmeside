@@ -5,9 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Tougaard Kommunikation – Søren Tougaard, kommunikationskonsulent</title>
 <meta name="description" content="Kommunikationsrådgivning for B2B-virksomheder der vil vokse. Kernefortælling, strategi, pressearbejde og indhold. Skrevet af Søren Tougaard, erhvervsjournalist og kommunikationskonsulent." />
+<meta name="theme-color" content="#F6F4ED" />
+<meta property="og:type" content="website" />
+<meta property="og:title" content="Tougaard Kommunikation – Søren Tougaard, kommunikationskonsulent" />
+<meta property="og:description" content="Kommunikationsrådgivning for B2B-virksomheder der vil vokse. Kernefortælling, strategi, pressearbejde og indhold." />
+<meta property="og:image" content="images/portraet.jpg" />
+<meta property="og:locale" content="da_DK" />
+<meta name="twitter:card" content="summary_large_image" />
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2316180F'/%3E%3Ccircle cx='72' cy='68' r='9' fill='%23C05A2B'/%3E%3Ctext x='30' y='68' font-family='Georgia,serif' font-size='58' fill='%23F6F4ED'%3ET%3C/text%3E%3C/svg%3E" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:ital,wght@0,300..700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="preload" as="image" href="images/portraet.jpg" fetchpriority="high" />
 <style>
   :root{
     --paper:#F6F4ED; --paper-raised:#FFFDF8; --paper-sunken:#EFECE2;
@@ -17,7 +26,11 @@
     --on-dark-body:#C9C9BB; --on-dark-muted:#9A9A8C;
   }
   * { box-sizing: border-box; }
+  html{ scroll-behavior:smooth; }
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
   html,body{ margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
+  .skip-link{ position:absolute; top:-100px; left:12px; background:var(--ink); color:var(--paper-raised); padding:12px 18px; z-index:100; border-radius:2px; font-size:14px; font-weight:600; transition:top .2s ease; }
+  .skip-link:focus{ top:12px; }
   a{ color:var(--clay); text-decoration:none; border-bottom:1px solid rgba(192,90,43,0.35); }
   a:hover{ color:var(--ink); border-bottom-color:var(--ink); }
   ::selection{ background:var(--clay); color:var(--paper); }
@@ -61,10 +74,16 @@
   .wordmark{ font-family:'Libre Baskerville',Georgia,serif; font-size:21px; letter-spacing:-0.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
   .wordmark .dot{ color:var(--clay); }
   .nav{ display:flex; gap:30px; align-items:center; }
-  .nav a:not(.btn){ font-size:15px; color:var(--ink-body); border-bottom:none; font-family:Karla,sans-serif; }
+  .nav a:not(.btn){ font-size:15px; color:var(--ink-body); border-bottom:1px solid transparent; font-family:Karla,sans-serif; transition:color .22s ease, border-color .22s ease; }
   .nav a:not(.btn):hover{ color:var(--clay); }
+  .nav a:not(.btn).active{ color:var(--clay); border-bottom-color:rgba(192,90,43,0.4); }
 
-  .hero{ display:grid; grid-template-columns:1.25fr 1fr; min-height:calc(100svh - var(--topbar-h, 68px)); }
+  .hero{ display:grid; grid-template-columns:1.25fr 1fr; min-height:calc(100svh - var(--topbar-h, 68px)); position:relative; }
+  .scroll-cue{ position:absolute; bottom:28px; left:50%; transform:translateX(-50%); width:40px; height:40px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--muted); background:rgba(246,244,237,0.85); backdrop-filter:blur(4px); animation:bob 2.2s ease-in-out infinite; transition:border-color .22s ease, color .22s ease; }
+  .scroll-cue:hover{ border-color:var(--clay); color:var(--clay); }
+  @keyframes bob{ 0%,100%{ transform:translateX(-50%) translateY(0); } 50%{ transform:translateX(-50%) translateY(6px); } }
+  @media (prefers-reduced-motion: reduce){ .scroll-cue{ animation:none; } }
+  @media (max-width:900px){ .scroll-cue{ display:none; } }
   .hero-text{ padding:56px 44px; border-right:1px solid var(--line); display:flex; flex-direction:column; justify-content:center; align-items:flex-start; }
   .eyebrow{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:var(--clay); margin-bottom:18px; }
   .hero h1{ font-size:clamp(1.9rem,4vw,2.75rem); line-height:1.12; margin-bottom:16px; }
@@ -138,6 +157,8 @@
 </head>
 <body>
 
+<a href="#main" class="skip-link">Spring til indhold</a>
+
 <div class="site">
 
   <div class="topbar">
@@ -156,7 +177,7 @@
     </div>
   </div>
 
-  <div class="hero">
+  <div id="main" class="hero">
     <div class="hero-text reveal">
       <h1>Tougaard Kommunikation<br />— når din virksomhed vil vokse</h1>
       <p class="lead">De bedste vækstbetingelser starter med klar kommunikation.<br />Jeg hjælper små og mellemstore B2B-virksomheder med at styrke tillid, relationer og synligheden til kunder, samarbejdspartnere og omverden, så de kan vokse.</p>
@@ -168,8 +189,11 @@
       <a href="#kontakt" class="btn btn-primary">Book et gratis møde</a>
     </div>
     <div class="hero-img">
-      <img src="images/portraet.jpg" alt="Søren Tougaard, kommunikationskonsulent" />
+      <img src="images/portraet.jpg" alt="Søren Tougaard, kommunikationskonsulent" width="1600" height="1307" fetchpriority="high" />
     </div>
+    <a href="#ydelser" class="scroll-cue" aria-label="Scroll til indhold">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 4v16m0 0l-6-6m6 6l6-6"/></svg>
+    </a>
   </div>
 
   <section class="block" id="ydelser">
@@ -222,7 +246,7 @@
         <a href="#kontakt">Skal jeres historie fortælles ligeså skarpt?</a>
       </div>
       <div class="case-img reveal">
-        <img src="images/case.jpg" alt="Søren Tougaard i arbejde" />
+        <img src="images/case.jpg" alt="Søren Tougaard i arbejde" width="933" height="1400" loading="lazy" />
       </div>
     </div>
   </div>
@@ -295,6 +319,21 @@
       });
     });
   }
+
+  (function(){
+    var sections = ['ydelser','om-mig','kontakt'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var navLinks = document.querySelectorAll('.nav a[href^="#"]');
+    if (!sections.length || !navLinks.length || !('IntersectionObserver' in window)) return;
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if (!entry.isIntersecting) return;
+        navLinks.forEach(function(link){
+          link.classList.toggle('active', link.getAttribute('href') === '#' + entry.target.id);
+        });
+      });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach(function(s){ spy.observe(s); });
+  })();
 
   (function(){
     var els = document.querySelectorAll('.reveal');
