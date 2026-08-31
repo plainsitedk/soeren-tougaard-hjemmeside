@@ -167,14 +167,12 @@
     <div class="nav">
       <a href="#ydelser">Ydelser</a>
       <a href="#om-mig">Om mig</a>
-      <a href="#kontakt">Kontakt</a>
       <a href="#kontakt" class="btn btn-dark">Kontakt mig</a>
       <button type="button" class="menu-toggle" id="menuToggle" aria-label="Åbn menu" aria-expanded="false">☰</button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
       <a href="#ydelser">Ydelser</a>
       <a href="#om-mig">Om mig</a>
-      <a href="#kontakt">Kontakt</a>
     </div>
   </div>
 
@@ -311,7 +309,7 @@
     var target = document.getElementById(id);
     if (!target) return;
     var topbar = document.querySelector('.topbar');
-    var offset = (topbar ? topbar.offsetHeight : 0) + 12;
+    var offset = topbar ? topbar.offsetHeight : 0;
     var top = target.getBoundingClientRect().top + window.pageYOffset - offset;
     window.scrollTo({ top: top, behavior: 'smooth' });
   }
