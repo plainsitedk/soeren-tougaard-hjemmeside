@@ -108,7 +108,7 @@
   .block-head h2{ font-size:clamp(1.5rem,3vw,2.0625rem); }
   .see-all{ font-size:15px; color:var(--clay); border-bottom:1px solid rgba(192,90,43,0.4); cursor:pointer; }
 
-  .card-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .card-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,280px)); justify-content:center; gap:24px; }
   .card{ border:1px solid var(--line); background:var(--paper-raised); padding:32px 30px; display:flex; flex-direction:column; gap:14px; transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; }
   .card:hover{ transform:translateY(-4px); border-color:var(--clay); }
   .card-num{ font-size:11px; color:var(--clay); }
@@ -203,7 +203,7 @@
 <div class="site">
 
   <div class="topbar">
-    <div class="wordmark">Tougaard Kommunikation</div>
+    <a href="#" class="wordmark" style="border-bottom:none;color:var(--ink);">Tougaard Kommunikation</a>
     <div class="nav">
       <a href="#ydelser">Ydelser</a>
       <a href="#processen">Processen</a>
@@ -432,12 +432,17 @@
   document.querySelectorAll('a[href^="#"]').forEach(function(link){
     link.addEventListener('click', function(e){
       var id = link.getAttribute('href').slice(1);
-      if (!id || !document.getElementById(id)) return;
+      if (id && !document.getElementById(id)) return;
       e.preventDefault();
       if (mobileMenu && mobileMenu.classList.contains('open')) {
         mobileMenu.classList.remove('open');
         menuToggle.setAttribute('aria-expanded', false);
         menuToggle.textContent = '☰';
+      }
+      if (!id) {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (history.pushState) history.pushState(null, '', location.pathname);
+        return;
       }
       requestAnimationFrame(function(){ smoothScrollTo(id); });
       if (history.pushState) history.pushState(null, '', '#' + id);
