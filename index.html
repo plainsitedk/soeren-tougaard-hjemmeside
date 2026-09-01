@@ -28,7 +28,7 @@
   * { box-sizing: border-box; }
   html{ scroll-behavior:smooth; }
   @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
-  #ydelser, #om-mig, #kontakt, #main{ scroll-margin-top:var(--topbar-h, 68px); }
+  #ydelser, #om-mig, #processen, #tidligere-kunder, #kontakt, #main{ scroll-margin-top:var(--topbar-h, 68px); }
   html,body{ margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
   .skip-link{ position:absolute; top:-100px; left:12px; background:var(--ink); color:var(--paper-raised); padding:12px 18px; z-index:100; border-radius:2px; font-size:14px; font-weight:600; transition:top .2s ease; }
   .skip-link:focus{ top:12px; }
@@ -58,8 +58,12 @@
   .card-grid .reveal:nth-child(4){ transition-delay:.03s; }
   .card-grid .reveal:nth-child(5){ transition-delay:.10s; }
   .card-grid .reveal:nth-child(6){ transition-delay:.17s; }
-  .highlights .reveal:nth-child(2){ transition-delay:.08s; }
-  .highlights .reveal:nth-child(3){ transition-delay:.16s; }
+  .steps .reveal:nth-child(1){ transition-delay:.02s; }
+  .steps .reveal:nth-child(2){ transition-delay:.06s; }
+  .steps .reveal:nth-child(3){ transition-delay:.10s; }
+  .steps .reveal:nth-child(4){ transition-delay:.14s; }
+  .steps .reveal:nth-child(5){ transition-delay:.18s; }
+  .steps .reveal:nth-child(6){ transition-delay:.22s; }
   @media (prefers-reduced-motion: reduce){
     .reveal{ opacity:1; transform:none; transition:none; }
     .btn:hover{ transform:none; }
@@ -74,8 +78,8 @@
   .topbar{ display:flex; align-items:center; justify-content:space-between; padding:22px 44px; border-bottom:1px solid var(--line); position:sticky; top:0; background:rgba(246,244,237,0.94); backdrop-filter:blur(8px); z-index:10; }
   .wordmark{ font-family:'Libre Baskerville',Georgia,serif; font-size:21px; letter-spacing:-0.01em; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; min-width:0; }
   .wordmark .dot{ color:var(--clay); }
-  .nav{ display:flex; gap:30px; align-items:center; }
-  .nav a:not(.btn){ font-size:15px; color:var(--ink-body); border-bottom:1px solid transparent; font-family:Karla,sans-serif; transition:color .22s ease, border-color .22s ease; }
+  .nav{ display:flex; gap:22px; align-items:center; }
+  .nav a:not(.btn){ font-size:14.5px; color:var(--ink-body); border-bottom:1px solid transparent; font-family:Karla,sans-serif; transition:color .22s ease, border-color .22s ease; white-space:nowrap; }
   .nav a:not(.btn):hover{ color:var(--clay); }
   .nav a:not(.btn).active{ color:var(--clay); border-bottom-color:rgba(192,90,43,0.4); }
 
@@ -106,21 +110,27 @@
   .card-num{ font-size:11px; color:var(--clay); }
   .card h3{ font-size:22px; line-height:1.25; }
   .card p{ font-size:15px; line-height:1.7; color:var(--ink-body); }
+  .card-more{ font-size:13px; font-weight:600; color:var(--clay); border-bottom:1px solid rgba(192,90,43,0.4); margin-top:auto; padding-top:6px; align-self:flex-start; }
+  .card-more:hover{ color:var(--ink); border-bottom-color:var(--ink); }
 
-  .case{ border-top:1px solid var(--line); background:var(--ink); color:var(--paper); padding:88px 44px; }
-  .case-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-  .case .eyebrow{ color:var(--clay); }
-  .case h2{ font-size:clamp(1.75rem,4vw,2.25rem); line-height:1.22; margin-bottom:24px; }
-  .case p{ font-size:17px; line-height:1.7; color:var(--on-dark-body); max-width:48ch; margin-bottom:32px; }
-  .case a{ color:var(--paper); border-bottom:1px solid rgba(246,244,237,0.4); }
-  .case a:hover{ border-bottom-color:var(--paper); }
-  .case-img{ border:1px solid rgba(246,244,237,0.18); height:300px; overflow:hidden; }
-  .case-img img{ width:100%; height:100%; object-fit:cover; object-position:center 15%; display:block; transition:transform .6s cubic-bezier(.16,1,.3,1); }
-  .case-img:hover img{ transform:scale(1.03); }
+  .processen{ border-top:1px solid var(--line); padding:84px 44px; }
+  .processen h2{ font-size:clamp(1.5rem,3vw,2.0625rem); margin-top:10px; }
+  .steps{ max-width:840px; margin-top:44px; }
+  .step{ display:grid; grid-template-columns:76px 1fr; gap:28px; padding:26px 0; border-top:1px solid var(--line); }
+  .step:last-child{ border-bottom:1px solid var(--line); }
+  .step-num{ font-family:'Libre Baskerville',Georgia,serif; font-size:34px; color:var(--clay); line-height:1; }
+  .step h3{ font-size:19px; margin-bottom:8px; }
+  .step p{ font-size:15px; line-height:1.7; color:var(--ink-body); max-width:56ch; }
 
-  .highlights{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
-  .highlight{ border-top:1px solid var(--line); padding-top:26px; }
-  .highlight p{ font-size:17px; line-height:1.5; color:var(--ink-body); font-family:'Libre Baskerville',Georgia,serif; }
+  .om-mig-grid{ display:grid; grid-template-columns:1fr 1.4fr; gap:60px; align-items:start; }
+  .om-mig-grid h2{ font-size:clamp(1.5rem,3vw,2.0625rem); line-height:1.25; position:sticky; top:calc(var(--topbar-h, 68px) + 20px); }
+  .om-mig-body{ display:flex; flex-direction:column; gap:20px; }
+  .om-mig-body p{ font-size:16px; line-height:1.75; color:var(--ink-body); max-width:62ch; }
+
+  .kunder-intro{ font-size:16px; line-height:1.65; color:var(--ink-body); max-width:60ch; margin-bottom:36px; }
+  .kunder-grid{ display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); }
+  .kunder-grid div{ padding:22px 24px; border-right:1px solid var(--line); border-bottom:1px solid var(--line); font-size:16px; color:var(--ink-body); font-family:'Libre Baskerville',Georgia,serif; transition:background .22s ease, color .22s ease; }
+  .kunder-grid div:hover{ background:var(--paper-sunken); color:var(--ink); }
 
   .kontakt{ border-top:1px solid var(--line); background:var(--paper-sunken); padding:84px 44px; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
   .kontakt h2{ font-size:clamp(1.5rem,3vw,2.0625rem); margin-bottom:18px; }
@@ -155,8 +165,15 @@
     .hero-list{ font-size:13.5px; margin-bottom:20px; }
     .hero-img{ order:-1; height:340px; min-height:340px; }
     .hero-img img{ min-height:340px; }
-    .card-grid, .case-grid, .highlights, .kontakt{ grid-template-columns:1fr; }
-    .case-img{ order:-1; height:220px; }
+    .card-grid, .kontakt, .om-mig-grid, .kunder-grid{ grid-template-columns:1fr; }
+    .om-mig-grid h2{ position:static; margin-bottom:8px; }
+    .step{ grid-template-columns:52px 1fr; gap:16px; }
+    .step-num{ font-size:26px; }
+  }
+  @media (max-width:480px){
+    .topbar{ flex-wrap:wrap; row-gap:10px; padding-top:14px; padding-bottom:14px; }
+    .wordmark{ font-size:16px; white-space:normal; overflow:visible; text-overflow:clip; flex:1 1 100%; order:1; }
+    .nav{ order:2; margin-left:auto; }
   }
 </style>
 </head>
@@ -171,12 +188,18 @@
     <div class="nav">
       <a href="#ydelser">Ydelser</a>
       <a href="#om-mig">Om mig</a>
+      <a href="#processen">Processen</a>
+      <a href="#tidligere-kunder">Tidligere kunder</a>
+      <a href="ydelser.html#priser">Priser</a>
       <a href="#kontakt" class="btn btn-dark">Kontakt mig</a>
       <button type="button" class="menu-toggle" id="menuToggle" aria-label="Åbn menu" aria-expanded="false">☰</button>
     </div>
     <div class="mobile-menu" id="mobileMenu">
       <a href="#ydelser">Ydelser</a>
       <a href="#om-mig">Om mig</a>
+      <a href="#processen">Processen</a>
+      <a href="#tidligere-kunder">Tidligere kunder</a>
+      <a href="ydelser.html#priser">Priser</a>
     </div>
   </div>
 
@@ -208,31 +231,37 @@
         <div class="card-num mono">01</div>
         <h3>Kernefortælling</h3>
         <p>Mangler I en kernefortælling? Eller er den eksisterende blevet rusten? Jeg hjælper jer med at gøre jeres 'hvorfor' helt skarp: jeres fælles identitet, der binder fortid, nutid og fremtid sammen.</p>
+        <a href="ydelser.html#kernefortaelling" class="card-more">Læs mere</a>
       </div>
       <div class="card reveal">
         <div class="card-num mono">02</div>
         <h3>Kommunikationsstrategi og plan</h3>
         <p>Savner du en rød tråd og struktur i jeres kommunikationsindsats? Med en kommunikationsstrategi får I en klar kurs, der understøtter jeres forretningsmål og sikrer sammenhæng på tværs af alle kanaler.</p>
+        <a href="ydelser.html#kommunikationsstrategi" class="card-more">Læs mere</a>
       </div>
       <div class="card reveal">
         <div class="card-num mono">03</div>
         <h3>Ledelsesrådgivning og krisestyring</h3>
         <p>Skal I kommunikere et afgørende valg ud i organisationen, eller vil I stå bedre rustet i en krise? Jeg agerer din betroede rådgiver og zoomer ind på de kritiske spørgsmål, der melder sig i processen.</p>
+        <a href="ydelser.html#ledelse-krisestyring" class="card-more">Læs mere</a>
       </div>
       <div class="card reveal">
         <div class="card-num mono">04</div>
         <h3>Digitalt indhold</h3>
         <p>Med +10.000 erhvervsartikler i bagagen hjælper jeg jer med at udvikle og producere indhold, der skaber høj værdi for modtageren: nyhedsbreve, kundecases, sociale medier, web og salgsmateriale.</p>
+        <a href="ydelser.html#digitalt-indhold" class="card-more">Læs mere</a>
       </div>
       <div class="card reveal">
         <div class="card-num mono">05</div>
         <h3>Pressearbejde</h3>
         <p>Som journalist og redaktør kender jeg nyhedskriterierne i søvne og hvert et hjørne af det danske medielandskab. Jeg pitcher historier direkte til de mest relevante medier og bygger relationer op.</p>
+        <a href="ydelser.html#pressearbejde" class="card-more">Læs mere</a>
       </div>
       <div class="card reveal">
         <div class="card-num mono">06</div>
         <h3>Hyr en erfaren kommunikatør</h3>
         <p>Er ressourcerne få eller opgaverne mange i jeres kommunikationsteam? Så hyr mig til en fast aftalt pris på uge- eller månedsbasis efter behov, fleksibelt og med erfaring i at rådgive ledelsen.</p>
+        <a href="ydelser.html#hyr-kommunikator" class="card-more">Læs mere</a>
       </div>
     </div>
     <div style="margin-top:44px;">
@@ -240,34 +269,89 @@
     </div>
   </section>
 
-  <div class="case">
-    <div class="case-grid">
-      <div class="reveal">
-        <div class="eyebrow mono">Case · Kamstrup</div>
-        <h2>Fra pressemeddelelse til krisestyring i samme kunderelation</h2>
-        <p>Pressemeddelelser om vunde ordrer, regnskab mv. Proaktiv pressekontakt, kundecases med fokus på de fordele, forsyningsselskaber får ud af Kamstrup målersystem, krisestyring på en række opgaver i samarbejde med ledelsen, forandringskommunikation og projektorganisering i forbindelse med ny brandidentitet, redaktør på medarbejderbrev, cases til medietræning.</p>
-        <a href="#kontakt">Skal jeres historie fortælles ligeså skarpt?</a>
+  <div class="processen" id="processen">
+    <div class="block-head">
+      <div>
+        <div class="eyebrow mono">Processen</div>
+        <h2>Samarbejde er en tillidssag. Altid.</h2>
       </div>
-      <div class="case-img reveal">
-        <img src="images/case.jpg" alt="Søren Tougaard i arbejde" width="933" height="1400" loading="lazy" />
+    </div>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="step-num">01</div>
+        <div>
+          <h3>Indledende møde</h3>
+          <p>Vi tager et indledende møde, hvor jeg bliver klogere på jeres udfordringer, og om vi er det rette match for hinanden. Mødet er gratis.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">02</div>
+        <div>
+          <h3>Tilbud og aftale</h3>
+          <p>Vi aftaler opgavens indhold, deadline og pris. Jeg sender et tilbud på opgaven. Ved længerevarende samarbejdsaftaler laver vi altid en skriftlig aftale.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">03</div>
+        <div>
+          <h3>Hurtig opstart</h3>
+          <p>Siger I ja, sætter jeg i værk hurtigst muligt. Typisk inden for en uge.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">04</div>
+        <div>
+          <h3>Gennemsyn</h3>
+          <p>Jeg sender altid materiale til gennemsyn inden endelig godkendelse.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">05</div>
+        <div>
+          <h3>Fortrolighed</h3>
+          <p>Alt fortrolig viden om jeres forretning forbliver mellem jer og mig.</p>
+        </div>
+      </div>
+      <div class="step reveal">
+        <div class="step-num">06</div>
+        <div>
+          <h3>Afslutning</h3>
+          <p>Ved opgavens afslutning modtager I en faktura. Måske udvikler samarbejdet sig?</p>
+        </div>
       </div>
     </div>
   </div>
 
   <section class="block" id="om-mig">
     <div class="block-head">
-      <h2>Om mig</h2>
+      <div class="eyebrow mono reveal">Om mig</div>
     </div>
-    <div class="highlights">
-      <div class="highlight reveal">
-        <p>Jeg er uddannet journalist. Den gode historie med mennesker i centrum er min platform. Overalt øjner jeg en ny spændende historie.</p>
+    <div class="om-mig-grid">
+      <h2 class="reveal">Erfaren kommunikatør, erhvervsjournalist og projektleder</h2>
+      <div class="om-mig-body reveal">
+        <p>Jeg bringer +15 års erfaring med ind i vores samarbejde fra job som kommunikationskonsulent, erhvervsjournalist og nyhedsredaktør.</p>
+        <p>Jeg er uddannet journalist. Den gode historie med mennesker i centrum er min platform. Overalt øjner jeg nye historier.</p>
+        <p>Min erfaring har givet mig en stærk evne til at formidle klart til modtageren, luge ud i støj og buzzword, analysere komplekse problemstillinger, omsætte strategi til budskaber og rådgive ledelsen om forandringskommunikation og krisestyring.</p>
+        <p>Min brancheindsigt spænder fra energi, forsyning og tech til retail, FMCG og medier.</p>
+        <p>Jeg er nysgerrig på mit fag. Derfor efteruddanner jeg mig løbende, følger med i AI, ligesom jeg er censor i journalistik. De senere år har jeg udbygget mine kompetencer med en Mini MBA i ledelse og en certificering i projektledelse.</p>
       </div>
-      <div class="highlight reveal">
-        <p>De senere år har jeg udbygget mine kompetencer med en Mini MBA i ledelse og en certificering i projektledelse.</p>
-      </div>
-      <div class="highlight reveal">
-        <p>Min brancheindsigt spænder bredt fra energi, forsyning og tech til medier, retail og FMCG.</p>
-      </div>
+    </div>
+  </section>
+
+  <section class="block" id="tidligere-kunder">
+    <div class="block-head">
+      <h2>Tidligere kunder</h2>
+    </div>
+    <p class="kunder-intro reveal">Jeg har tidligere løst opgaver for en række virksomheder samt interesseorganisationer. Her et udpluk:</p>
+    <div class="kunder-grid reveal">
+      <div>Allerød Spildevand</div>
+      <div>Berendsen (i dag Elis)</div>
+      <div>CJ A/S</div>
+      <div>Dansk Fjernvarme</div>
+      <div>Grønlands Idrætsforbund</div>
+      <div>Landbrug &amp; Fødevarer</div>
+      <div>Langhøj</div>
+      <div>Sydbank</div>
     </div>
   </section>
 
@@ -298,7 +382,7 @@
 
   <div class="footer">
     <div class="footer-word">Tougaard Kommunikation</div>
-    <a href="#" aria-label="LinkedIn" style="border-bottom:none;color:var(--muted-light);display:flex;align-items:center;transition:color .22s ease;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted-light)'">
+    <a href="https://www.linkedin.com/in/søren-tougaard" target="_blank" rel="noopener" aria-label="LinkedIn" style="border-bottom:none;color:var(--muted-light);display:flex;align-items:center;transition:color .22s ease;" onmouseover="this.style.color='var(--ink)'" onmouseout="this.style.color='var(--muted-light)'">
       <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.34V9h3.42v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.13 2.07 2.07 0 0 1 0 4.13zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
     </a>
   </div>
@@ -353,7 +437,7 @@
   }
 
   (function(){
-    var sections = ['ydelser','om-mig','kontakt'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
+    var sections = ['ydelser','om-mig','processen','tidligere-kunder','kontakt'].map(function(id){ return document.getElementById(id); }).filter(Boolean);
     var navLinks = document.querySelectorAll('.nav a[href^="#"]');
     if (!sections.length || !navLinks.length || !('IntersectionObserver' in window)) return;
     var spy = new IntersectionObserver(function(entries){
