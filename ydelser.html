@@ -45,8 +45,8 @@
   .nav{ display:flex; gap:22px; align-items:center; }
   .nav a:not(.btn){ font-size:14.5px; color:var(--ink-body); border-bottom:none; font-family:Karla,sans-serif; white-space:nowrap; }
   .nav a:not(.btn):hover{ color:var(--clay); }
-  .btn{ font-family:Karla,sans-serif; font-weight:600; border-radius:2px; cursor:pointer; transition:background .22s ease, color .22s ease, border-color .22s ease, transform .22s cubic-bezier(.16,1,.3,1); display:inline-block; }
-  .btn:hover{ transform:translateY(-2px); }
+  .btn{ font-family:Karla,sans-serif; font-weight:600; border-radius:2px; cursor:pointer; transition:background .22s ease, color .22s ease, border-color .22s ease, transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s cubic-bezier(.16,1,.3,1); display:inline-block; box-shadow:0 1px 2px rgba(22,24,15,0.06); }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 20px -6px rgba(22,24,15,0.18); }
   .btn:active{ transform:translateY(0); }
   .btn-dark{ font-size:14px; padding:11px 20px; background:var(--ink); color:var(--paper-raised); border:1px solid var(--ink); white-space:nowrap; flex-shrink:0; }
   .btn-dark:hover{ background:var(--clay); border-color:var(--clay); }
@@ -94,12 +94,12 @@
   .footer-word{ font-family:'Libre Baskerville',Georgia,serif; font-size:18px; }
   .footer-meta{ font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted-light); display:flex; gap:26px; flex-wrap:wrap; }
 
-  .menu-toggle{ display:none; background:none; border:1px solid var(--line); border-radius:2px; width:38px; height:38px; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; font-size:16px; color:var(--ink); transition:background .22s ease, transform .22s ease; }
-  .menu-toggle:hover{ background:var(--paper-sunken); }
+  .menu-toggle{ display:none; background:none; border:1px solid var(--line); border-radius:2px; width:38px; height:38px; align-items:center; justify-content:center; cursor:pointer; flex-shrink:0; font-size:16px; color:var(--ink); transition:background .22s ease, transform .22s ease, box-shadow .22s ease; }
+  .menu-toggle:hover{ background:var(--paper-sunken); box-shadow:0 4px 10px rgba(22,24,15,0.10); }
   .menu-toggle:active{ transform:scale(.92); }
   .mobile-menu{ display:none; }
-  .pris-card{ transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease; }
-  .pris-card:hover{ transform:translateY(-4px); border-color:var(--clay); }
+  .pris-card{ transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; box-shadow:0 1px 3px rgba(22,24,15,0.04); }
+  .pris-card:hover{ transform:translateY(-4px); border-color:var(--clay); box-shadow:0 16px 32px -12px rgba(22,24,15,0.16); }
 
   @media (max-width:900px){
     .topbar, .page-head, .ydelse, .priser, .kontakt-cta, .footer{ padding-left:20px; padding-right:20px; }

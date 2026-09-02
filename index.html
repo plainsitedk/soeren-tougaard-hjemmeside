@@ -40,16 +40,16 @@
   p{ margin:0; }
   .mono{ font-family:'JetBrains Mono',monospace; }
   .wrap{ max-width:1180px; margin:0 auto; }
-  .btn{ font-family:Karla,sans-serif; font-weight:600; border-radius:2px; cursor:pointer; transition:background .22s ease, color .22s ease, border-color .22s ease, transform .22s cubic-bezier(.16,1,.3,1); display:inline-block; }
-  .btn:hover{ transform:translateY(-2px); }
+  .btn{ font-family:Karla,sans-serif; font-weight:600; border-radius:2px; cursor:pointer; transition:background .22s ease, color .22s ease, border-color .22s ease, transform .22s cubic-bezier(.16,1,.3,1), box-shadow .22s cubic-bezier(.16,1,.3,1); display:inline-block; box-shadow:0 1px 2px rgba(22,24,15,0.06); }
+  .btn:hover{ transform:translateY(-2px); box-shadow:0 10px 20px -6px rgba(22,24,15,0.18); }
   .btn:active{ transform:translateY(0); }
   .btn:disabled{ opacity:0.55; cursor:default; transform:none; }
   .btn-primary{ font-size:15px; padding:15px 28px; background:var(--clay); color:var(--paper-raised); border:1px solid var(--clay); }
   .btn-primary:hover{ background:var(--ink); border-color:var(--ink); color:var(--paper-raised); }
   .btn-dark{ font-size:14px; padding:11px 20px; background:var(--ink); color:var(--paper-raised); border:1px solid var(--ink); white-space:nowrap; flex-shrink:0; }
   .btn-dark:hover{ background:var(--clay); border-color:var(--clay); }
-  .menu-toggle{ transition:background .22s ease, transform .22s ease; }
-  .menu-toggle:hover{ background:var(--paper-sunken); }
+  .menu-toggle{ transition:background .22s ease, transform .22s ease, box-shadow .22s ease; }
+  .menu-toggle:hover{ background:var(--paper-sunken); box-shadow:0 4px 10px rgba(22,24,15,0.10); }
   .menu-toggle:active{ transform:scale(.92); }
 
   .reveal{ opacity:0; transform:translateY(18px); transition:opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1); }
@@ -86,8 +86,8 @@
   .nav a:not(.btn).active{ color:var(--clay); border-bottom-color:rgba(192,90,43,0.4); }
 
   .hero{ display:grid; grid-template-columns:1.25fr 1fr; min-height:calc(100svh - var(--topbar-h, 68px)); position:relative; }
-  .scroll-cue{ position:absolute; bottom:28px; left:50%; transform:translateX(-50%); width:40px; height:40px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--muted); background:rgba(246,244,237,0.85); backdrop-filter:blur(4px); animation:bob 2.2s ease-in-out infinite; transition:border-color .22s ease, color .22s ease; }
-  .scroll-cue:hover{ border-color:var(--clay); color:var(--clay); }
+  .scroll-cue{ position:absolute; bottom:28px; left:50%; transform:translateX(-50%); width:40px; height:40px; border:1px solid var(--line); border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--muted); background:rgba(246,244,237,0.85); backdrop-filter:blur(4px); animation:bob 2.2s ease-in-out infinite; transition:border-color .22s ease, color .22s ease, box-shadow .22s ease; box-shadow:0 4px 12px rgba(22,24,15,0.10); }
+  .scroll-cue:hover{ border-color:var(--clay); color:var(--clay); box-shadow:0 6px 16px rgba(192,90,43,0.18); }
   @keyframes bob{ 0%,100%{ transform:translateX(-50%) translateY(0); } 50%{ transform:translateX(-50%) translateY(6px); } }
   @media (prefers-reduced-motion: reduce){ .scroll-cue{ animation:none; } }
   @media (max-width:900px){ .scroll-cue{ display:none; } }
@@ -113,8 +113,8 @@
   .see-all:hover .arrow{ transform:translateX(4px); }
 
   .card-grid{ display:grid; grid-template-columns:repeat(3,minmax(0,280px)); justify-content:center; gap:24px; }
-  .card{ border:1px solid var(--line); background:var(--paper-raised); padding:32px 30px; display:flex; flex-direction:column; gap:14px; transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; }
-  .card:hover{ transform:translateY(-4px); border-color:var(--clay); }
+  .card{ border:1px solid var(--line); background:var(--paper-raised); padding:32px 30px; display:flex; flex-direction:column; gap:14px; transition:transform .3s cubic-bezier(.16,1,.3,1), border-color .3s ease, box-shadow .3s ease; box-shadow:0 1px 3px rgba(22,24,15,0.04); }
+  .card:hover{ transform:translateY(-4px); border-color:var(--clay); box-shadow:0 16px 32px -12px rgba(22,24,15,0.16); }
   .card-num{ font-size:11px; color:var(--clay); }
   .card h3{ font-size:22px; line-height:1.25; overflow-wrap:break-word; hyphens:auto; }
   .card p{ font-size:15px; line-height:1.7; color:var(--ink-body); overflow-wrap:break-word; }
