@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }</script>
 <title>Tougaard Kommunikation – Søren Tougaard, kommunikationskonsulent</title>
 <meta name="description" content="Kommunikationsrådgivning for B2B-virksomheder der vil vokse. Kernefortælling, strategi, pressearbejde og indhold. Skrevet af Søren Tougaard, erhvervsjournalist og kommunikationskonsulent." />
 <meta name="theme-color" content="#F6F4ED" />
@@ -460,8 +461,15 @@
     });
   }
 
-  // Arriving from another page with a #hash (e.g. ydelser.html -> index.html#kontakt): scroll smoothly instead of snapping.
-  if (location.hash) {
+  // On reload (F5 / cmd+R), always start at the top instead of restoring scroll position or jumping to a stale #hash.
+  var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
+  var isReload = navEntry ? navEntry.type === 'reload' : (performance.navigation && performance.navigation.type === 1);
+
+  if (isReload) {
+    window.scrollTo(0, 0);
+    if (history.replaceState) history.replaceState(null, '', location.pathname);
+  } else if (location.hash) {
+    // Arriving from another page with a #hash (e.g. ydelser.html -> index.html#kontakt): scroll smoothly instead of snapping.
     var landingId = location.hash.slice(1);
     if (document.getElementById(landingId)) {
       window.scrollTo(0, 0);
