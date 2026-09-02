@@ -193,10 +193,26 @@
     .hero-list{ font-size:13.5px; margin-bottom:20px; }
     .hero-img{ order:-1; height:340px; min-height:340px; }
     .hero-img img{ min-height:340px; }
-    .card-grid, .kontakt, .om-mig-grid, .kunder-grid{ grid-template-columns:1fr; }
+    .kontakt, .om-mig-grid, .kunder-grid{ grid-template-columns:1fr; }
     .om-mig-grid h2{ position:static; margin-bottom:8px; }
     .processen-head{ margin-bottom:44px; }
-    .timeline{ grid-template-columns:1fr 1fr; row-gap:40px; }
+
+    /* Vertical timeline: dot column + content column, connecting line runs down the left */
+    .timeline{ display:grid; grid-template-columns:13px 1fr; column-gap:16px; row-gap:0; position:relative; }
+    .timeline-progress{ display:none; }
+    .timeline::before{ display:block; top:6px; left:6px; right:auto; bottom:10px; width:1px; height:auto; }
+    .step{ display:contents; }
+    .step.dimmed{ opacity:1; }
+    .step-dot{ grid-column:1; grid-row:span 4; margin:4px 0 0; align-self:start; }
+    .step-label{ grid-column:2; }
+    .step-num{ grid-column:2; font-size:26px; margin-bottom:10px; }
+    .step h3{ grid-column:2; }
+    .step p{ grid-column:2; padding-bottom:30px; }
+
+    /* Ydelser cards: swipeable carousel */
+    .card-grid{ display:flex; grid-template-columns:none; justify-content:flex-start; overflow-x:auto; scroll-snap-type:x mandatory; gap:16px; padding-bottom:6px; margin:0 -20px; padding-left:20px; padding-right:20px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
+    .card-grid::-webkit-scrollbar{ display:none; }
+    .card{ flex:0 0 82%; scroll-snap-align:start; }
   }
   @media (max-width:480px){
     .topbar{ flex-wrap:wrap; row-gap:10px; padding-top:14px; padding-bottom:14px; }
@@ -306,7 +322,6 @@
       <h2>Samarbejde er en tillidssag. Altid.</h2>
     </div>
     <div class="timeline">
-      <div class="timeline-progress" id="timelineProgress"></div>
       <div class="step reveal">
         <div class="step-dot"></div>
         <div class="step-label mono">Start</div>
@@ -349,6 +364,7 @@
         <h3>Faktura, og måske mere</h3>
         <p>Ved opgavens afslutning modtager I en faktura. Måske udvikler samarbejdet sig?</p>
       </div>
+      <div class="timeline-progress" id="timelineProgress"></div>
     </div>
     <div class="processen-cta reveal">
       <a href="#kontakt" class="btn btn-dark">Book det indledende møde</a>
