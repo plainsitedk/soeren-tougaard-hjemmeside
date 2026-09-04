@@ -71,9 +71,21 @@
   .page-head h1{ font-size:clamp(2rem,4vw,2.75rem); line-height:1.14; margin-bottom:18px; }
   .page-head p{ font-size:17px; line-height:1.65; color:var(--ink-body); }
 
-  .ydelse{ border-top:1px solid var(--line); padding:52px 44px; display:grid; grid-template-columns:210px 1fr; gap:48px; }
-  .ydelse-num{ font-size:11px; color:var(--clay); margin-bottom:10px; }
-  .ydelse h2{ font-size:24px; line-height:1.25; overflow-wrap:break-word; hyphens:auto; }
+  .ydelse{ border-top:1px solid var(--line); }
+  .ydelse-toggle{ all:unset; box-sizing:border-box; display:flex; align-items:flex-start; justify-content:space-between; gap:28px; width:100%; padding:34px 44px; cursor:pointer; }
+  .ydelse-toggle:focus-visible{ outline:2px solid var(--clay); outline-offset:-2px; }
+  .ydelse-head{ display:flex; align-items:baseline; gap:24px; flex-wrap:wrap; row-gap:6px; }
+  .ydelse-num{ font-size:11px; color:var(--clay); flex-shrink:0; }
+  .ydelse-head h2{ font-size:22px; line-height:1.25; overflow-wrap:break-word; hyphens:auto; transition:color .2s ease; flex-shrink:0; }
+  .ydelse-toggle:hover .ydelse-head h2{ color:var(--clay); }
+  .ydelse-teaser{ font-size:15px; line-height:1.5; color:var(--ink-body); margin:0; flex:1 1 260px; min-width:200px; }
+  .ydelse-chevron{ font-family:'Libre Baskerville',Georgia,serif; font-size:22px; color:var(--muted); flex-shrink:0; line-height:1; margin-top:1px; transition:transform .35s cubic-bezier(.16,1,.3,1), color .2s ease; }
+  .ydelse.open .ydelse-chevron{ transform:rotate(45deg); color:var(--clay); }
+
+  .ydelse-collapse{ display:grid; grid-template-rows:0fr; transition:grid-template-rows .4s cubic-bezier(.16,1,.3,1); }
+  .ydelse-collapse-inner{ overflow:hidden; }
+  .ydelse.open .ydelse-collapse{ grid-template-rows:1fr; }
+  .ydelse-body{ padding:0 44px 40px 92px; }
   .ydelse-body p{ font-size:16px; line-height:1.75; color:var(--ink-body); margin-bottom:14px; max-width:64ch; }
   .ydelse-body p:last-of-type{ margin-bottom:0; }
   .ydelse-cta{ margin-top:18px; }
@@ -102,11 +114,13 @@
   .pris-card:hover{ transform:translateY(-4px); border-color:var(--clay); box-shadow:0 16px 32px -12px rgba(22,24,15,0.16); }
 
   @media (max-width:900px){
-    .topbar, .page-head, .ydelse, .priser, .kontakt-cta, .footer{ padding-left:20px; padding-right:20px; }
+    .topbar, .page-head, .priser, .kontakt-cta, .footer{ padding-left:20px; padding-right:20px; }
     .topbar{ min-width:0; position:relative; }
     .wordmark{ font-size:15px; min-width:0; }
     .nav{ gap:10px; }
-    .ydelse{ grid-template-columns:1fr; gap:16px; }
+    .ydelse-toggle{ padding:26px 20px; gap:16px; }
+    .ydelse-head{ gap:4px 14px; }
+    .ydelse-body{ padding:0 20px 32px 20px; }
     .pris-grid{ grid-template-columns:1fr; }
     .nav a:not(.btn){ display:none; }
     .btn-dark{ font-size:12.5px; padding:9px 14px; }
@@ -151,107 +165,171 @@
   </div>
 
   <div class="ydelse reveal" id="kernefortaelling">
-    <div>
-      <div class="ydelse-num mono">01</div>
-      <h2>Kernefortælling</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Mangler I en kernefortælling? Eller er den eksisterende blevet rusten?<br />Jeg hjælper jer med at gøre jeres 'hvorfor' helt skarp. Kommunikation uden en kernefortælling svarer til at gå med bind for øjnene.</p>
-      <p>Med en kernefortælling forklarer I kunder og omverden, hvorfor I eksisterer, hvad der er jeres formål, værdier og målsætninger for fremtiden. Kernefortællingen er jeres fælles identitet og en platform, der binder fortid, nutid og fremtid sammen og kort beskriver, hvordan I adskiller jer fra andre, og hvorfor kunder skal vælge lige netop jer.</p>
-      <p>Arbejdet med en skarp kernefortælling foregår over en kort session, hvor jeg interviewer ledere, udvalgte medarbejdere og om muligt enkelte kunder for at sikre, at den bliver virksomhedens fælles identitet. Jeres input bliver i første omgang samlet til flere forslag, som sendes til en endelig gennemgang og finjusteres, inden kernefortællingen falder helt på plads.</p>
-      <div class="ydelse-cta"><a href="index.html#kontakt">Book et gratis møde</a></div>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-kernefortaelling">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">01</div>
+        <h2>Kernefortælling</h2>
+        <p class="ydelse-teaser">Gør jeres 'hvorfor' skarpt — den fælles identitet, der binder fortid, nutid og fremtid sammen.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-kernefortaelling">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Mangler I en kernefortælling? Eller er den eksisterende blevet rusten?<br />Jeg hjælper jer med at gøre jeres 'hvorfor' helt skarp. Kommunikation uden en kernefortælling svarer til at gå med bind for øjnene.</p>
+          <p>Med en kernefortælling forklarer I kunder og omverden, hvorfor I eksisterer, hvad der er jeres formål, værdier og målsætninger for fremtiden. Kernefortællingen er jeres fælles identitet og en platform, der binder fortid, nutid og fremtid sammen og kort beskriver, hvordan I adskiller jer fra andre, og hvorfor kunder skal vælge lige netop jer.</p>
+          <p>Arbejdet med en skarp kernefortælling foregår over en kort session, hvor jeg interviewer ledere, udvalgte medarbejdere og om muligt enkelte kunder for at sikre, at den bliver virksomhedens fælles identitet. Jeres input bliver i første omgang samlet til flere forslag, som sendes til en endelig gennemgang og finjusteres, inden kernefortællingen falder helt på plads.</p>
+          <div class="ydelse-cta"><a href="index.html#kontakt">Book et gratis møde</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="kommunikationsstrategi">
-    <div>
-      <div class="ydelse-num mono">02</div>
-      <h2>Kommunikationsstrategi og plan</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Savner du en rød tråd og struktur i jeres kommunikationsindsats?<br />Bliver jeres strategi ikke fulgt op af klare budskaber til jeres interessenter? Så mangler I formentlig en strategi.</p>
-      <p>Med en kommunikationsstrategi får I en klar kurs, der understøtter jeres forretningsmål. Den sigter efter, hvad I vil opnå med kommunikationsindsatsen. Og den udstikker jeres mærkesager, som I vil arbejde for at positionere jer på.</p>
-      <p>Strategien sikrer sammenhæng på tværs af alle kanaler, og at jeres budskaber rammer jeres målgrupper de rette steder. Den bliver nedbrudt i en kommunikationsplan, der sikrer overblik over, hvad der skal kommunikeres hvornår, og hvem der har ansvaret. Et årshjul med temaer fungerer som motoren for målrettet indhold på sociale medier, nyhedsbreve, web, intranet, presse mv.</p>
-      <p>En kommunikationsstrategi omfatter flere faser og starter med en grundig foranalyse med interview af ledelse, nøglepersoner og udpegede kunder samt analyse af nuværende kanaler, markedet og konkurrenter.</p>
-      <div class="ydelse-cta"><a href="index.html#kontakt">Book et gratis formøde</a></div>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-kommunikationsstrategi">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">02</div>
+        <h2>Kommunikationsstrategi og plan</h2>
+        <p class="ydelse-teaser">En klar kurs for kommunikationen, brudt ned i en plan der sikrer overblik over hvad der skal siges hvornår.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-kommunikationsstrategi">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Savner du en rød tråd og struktur i jeres kommunikationsindsats?<br />Bliver jeres strategi ikke fulgt op af klare budskaber til jeres interessenter? Så mangler I formentlig en strategi.</p>
+          <p>Med en kommunikationsstrategi får I en klar kurs, der understøtter jeres forretningsmål. Den sigter efter, hvad I vil opnå med kommunikationsindsatsen. Og den udstikker jeres mærkesager, som I vil arbejde for at positionere jer på.</p>
+          <p>Strategien sikrer sammenhæng på tværs af alle kanaler, og at jeres budskaber rammer jeres målgrupper de rette steder. Den bliver nedbrudt i en kommunikationsplan, der sikrer overblik over, hvad der skal kommunikeres hvornår, og hvem der har ansvaret. Et årshjul med temaer fungerer som motoren for målrettet indhold på sociale medier, nyhedsbreve, web, intranet, presse mv.</p>
+          <p>En kommunikationsstrategi omfatter flere faser og starter med en grundig foranalyse med interview af ledelse, nøglepersoner og udpegede kunder samt analyse af nuværende kanaler, markedet og konkurrenter.</p>
+          <div class="ydelse-cta"><a href="index.html#kontakt">Book et gratis formøde</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="ledelse-krisestyring">
-    <div>
-      <div class="ydelse-num mono">03</div>
-      <h2>Ledelsesrådgivning og krisestyring</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Har du og din bestyrelse truffet et afgørende valg, som du snart skal kommunikere ud i organisationen, til jeres kunder og øvrige samarbejdspartnere?<br />Måske har I opkøbt en konkurrent, er selv blevet opkøbt, må foretage organisationsændringer eller fremlægger et regnskab langt fra det forventede.</p>
-      <p>Så kan det være en rigtig god idé at få eksterne øjne på, hvordan du bedst timer og kommunikerer dine budskaber. Som erfaren ekstern kommunikatør agerer jeg din betroede rådgiver og zoomer ind på de kritiske spørgsmål, der melder sig i processen.</p>
-      <p>I krisestyring gælder det altid om at være forberedt. Men har I selv hånd om, hvilke kriser der hurtigt kan opstå i jeres organisation? Hvordan håndterer I situationen internt og ud mod jeres omverden? Hvilke spørgsmål og dilemmaer træder frem?</p>
-      <p>Jeg kridter banen op med to-tre virkelighedsnære cases, der kan opstå i din virksomhed. Herefter afholder vi en session, hvor vi gennemgår scenarierne, og hvor ledelsesgruppen diskuterer, hvordan I håndterer sagerne. Ønsker I det, får vi en øvet ekstern journalist til at stille jer kritiske spørgsmål.</p>
-      <div class="ydelse-cta"><a href="index.html#kontakt">Hør mere</a></div>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-ledelse-krisestyring">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">03</div>
+        <h2>Ledelsesrådgivning og krisestyring</h2>
+        <p class="ydelse-teaser">Betroet rådgivning når afgørende beslutninger skal kommunikeres — og beredskab før krisen rammer.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-ledelse-krisestyring">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Har du og din bestyrelse truffet et afgørende valg, som du snart skal kommunikere ud i organisationen, til jeres kunder og øvrige samarbejdspartnere?<br />Måske har I opkøbt en konkurrent, er selv blevet opkøbt, må foretage organisationsændringer eller fremlægger et regnskab langt fra det forventede.</p>
+          <p>Så kan det være en rigtig god idé at få eksterne øjne på, hvordan du bedst timer og kommunikerer dine budskaber. Som erfaren ekstern kommunikatør agerer jeg din betroede rådgiver og zoomer ind på de kritiske spørgsmål, der melder sig i processen.</p>
+          <p>I krisestyring gælder det altid om at være forberedt. Men har I selv hånd om, hvilke kriser der hurtigt kan opstå i jeres organisation? Hvordan håndterer I situationen internt og ud mod jeres omverden? Hvilke spørgsmål og dilemmaer træder frem?</p>
+          <p>Jeg kridter banen op med to-tre virkelighedsnære cases, der kan opstå i din virksomhed. Herefter afholder vi en session, hvor vi gennemgår scenarierne, og hvor ledelsesgruppen diskuterer, hvordan I håndterer sagerne. Ønsker I det, får vi en øvet ekstern journalist til at stille jer kritiske spørgsmål.</p>
+          <div class="ydelse-cta"><a href="index.html#kontakt">Hør mere</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="digitalt-indhold">
-    <div>
-      <div class="ydelse-num mono">04</div>
-      <h2>Digitalt indhold</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Med +10.000 erhvervsartikler i bagagen hjælper jeg jer med at udvikle og producere indhold, der skaber høj værdi for modtageren.</p>
-      <p>Faglig indsigt, hvad kunderne får ud af samarbejdet og nyheder om virksomheden, udgør kernen i jeres nyhedsbreve, kundecases, sociale medier, web, salgsmateriale og intranet.</p>
-      <p>Indholdet tager altid udgangspunkt i, hvad der er jeres formål og kernebudskaber, så indholdet ikke stritter i alle mulige retninger men har en rød tråd.</p>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-digitalt-indhold">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">04</div>
+        <h2>Digitalt indhold</h2>
+        <p class="ydelse-teaser">Nyhedsbreve, kundecases og salgsmateriale med afsæt i jeres formål og kernebudskaber.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-digitalt-indhold">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Med +10.000 erhvervsartikler i bagagen hjælper jeg jer med at udvikle og producere indhold, der skaber høj værdi for modtageren.</p>
+          <p>Faglig indsigt, hvad kunderne får ud af samarbejdet og nyheder om virksomheden, udgør kernen i jeres nyhedsbreve, kundecases, sociale medier, web, salgsmateriale og intranet.</p>
+          <p>Indholdet tager altid udgangspunkt i, hvad der er jeres formål og kernebudskaber, så indholdet ikke stritter i alle mulige retninger men har en rød tråd.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="maerkesager">
-    <div>
-      <div class="ydelse-num mono">05</div>
-      <h2>Mærkesager</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Overser I en gylden mulighed for at gøre en forskel og positionere jer på nogle af samfundets allervigtigste dagsordener?</p>
-      <p>For mange SMV'er og rådgivervirksomheder er det ikke nok blot at fokusere på den økonomiske bundlinje. Virksomheden skal have et højere formål end at tjene penge.</p>
-      <p>Jeg hjælper med at identificere, hvor jeres virksomhed kan gøre en forskel. Måske er det inden for socialt ansvar, klima, det rummelige arbejdsmarked eller et helt andet felt, som ligger i tråd med virksomhedens værdier.<br />Jeg hjælper desuden med at skabe opmærksomhed omkring jeres mærkesager. Det kan være i kommentarer, indlæg, pitch til medier eller som oplæg i debatter.</p>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-maerkesager">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">05</div>
+        <h2>Mærkesager</h2>
+        <p class="ydelse-teaser">Identificér hvor jeres virksomhed kan gøre en forskel, og skab opmærksomhed omkring det.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-maerkesager">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Overser I en gylden mulighed for at gøre en forskel og positionere jer på nogle af samfundets allervigtigste dagsordener?</p>
+          <p>For mange SMV'er og rådgivervirksomheder er det ikke nok blot at fokusere på den økonomiske bundlinje. Virksomheden skal have et højere formål end at tjene penge.</p>
+          <p>Jeg hjælper med at identificere, hvor jeres virksomhed kan gøre en forskel. Måske er det inden for socialt ansvar, klima, det rummelige arbejdsmarked eller et helt andet felt, som ligger i tråd med virksomhedens værdier.<br />Jeg hjælper desuden med at skabe opmærksomhed omkring jeres mærkesager. Det kan være i kommentarer, indlæg, pitch til medier eller som oplæg i debatter.</p>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="pressearbejde">
-    <div>
-      <div class="ydelse-num mono">06</div>
-      <h2>Pressearbejde</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Pressemeddelelsen er bestemt ikke død. Men håndværket skal gøres ordentligt. Jeg er naturligvis klar i spyttet, hvis din historie ikke har pressepotentiale.</p>
-      <p>Som journalist og redaktør har jeg kylet tusindvis af pressemeddelelser direkte i skraldespanden. Typisk fordi de var alt for salgsorienterede og slet ikke ramte den rigtige målgruppe.<br />Som kommunikatør har jeg skrevet omkring 50 i tæt samarbejde med topledelsen, hvoraf flere er gået medie-viralt og har skabt stor PR-værdi.</p>
-      <p>Når I skal have skrevet en pressemeddelelse, kender jeg nyhedskriterierne i søvne og hvert et hjørne af det danske medielandskab. Jeg er vant til at pitche historier direkte til de mest relevante medier og bygge relationer op.</p>
-      <p>Som en ekstra service tilbyder jeg at være pressevagt for både private og offentlige virksomheder i weekender, så dine medarbejdere kan holde helt fri. En pressemeddelelse fås til en fast pris. Den sendes til udvalgte medier. Med i prisen følger pitch og opfølgning.</p>
-      <p>Foto indgår ikke i prisen. Har du behov for en fotograf til portrætter og virksomhedsportræt, hjælper jeg dig gerne med at finde den rigtige.</p>
-      <div class="ydelse-cta"><a href="index.html#kontakt">Kontakt mig for mere info</a></div>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-pressearbejde">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">06</div>
+        <h2>Pressearbejde</h2>
+        <p class="ydelse-teaser">Vinkler der bliver til historier — skrevet af en tidligere redaktør, der kender medielandskabet indefra.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-pressearbejde">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Pressemeddelelsen er bestemt ikke død. Men håndværket skal gøres ordentligt. Jeg er naturligvis klar i spyttet, hvis din historie ikke har pressepotentiale.</p>
+          <p>Som journalist og redaktør har jeg kylet tusindvis af pressemeddelelser direkte i skraldespanden. Typisk fordi de var alt for salgsorienterede og slet ikke ramte den rigtige målgruppe.<br />Som kommunikatør har jeg skrevet omkring 50 i tæt samarbejde med topledelsen, hvoraf flere er gået medie-viralt og har skabt stor PR-værdi.</p>
+          <p>Når I skal have skrevet en pressemeddelelse, kender jeg nyhedskriterierne i søvne og hvert et hjørne af det danske medielandskab. Jeg er vant til at pitche historier direkte til de mest relevante medier og bygge relationer op.</p>
+          <p>Som en ekstra service tilbyder jeg at være pressevagt for både private og offentlige virksomheder i weekender, så dine medarbejdere kan holde helt fri. En pressemeddelelse fås til en fast pris. Den sendes til udvalgte medier. Med i prisen følger pitch og opfølgning.</p>
+          <p>Foto indgår ikke i prisen. Har du behov for en fotograf til portrætter og virksomhedsportræt, hjælper jeg dig gerne med at finde den rigtige.</p>
+          <div class="ydelse-cta"><a href="index.html#kontakt">Kontakt mig for mere info</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="hyr-kommunikator">
-    <div>
-      <div class="ydelse-num mono">07</div>
-      <h2>Hyr en erfaren kommunikatør</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Er ressourcerne få eller opgaverne mange i jeres kommunikationsteam? Så hyr mig til en fast aftalt pris på uge- eller månedsbasis efter behov.</p>
-      <p>Det giver jer stor fleksibilitet og en kommunikatør ved hånden, der hurtigt finder de gode historier, eksekverer på jeres strategi og som har erfaring i at rådgive ledelsen.</p>
-      <div class="ydelse-cta"><a href="index.html#kontakt">Hør mere om muligheden</a></div>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-hyr-kommunikator">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">07</div>
+        <h2>Hyr en erfaren kommunikatør</h2>
+        <p class="ydelse-teaser">En kommunikatør ved hånden på uge- eller månedsbasis, fleksibelt og efter behov.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-hyr-kommunikator">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Er ressourcerne få eller opgaverne mange i jeres kommunikationsteam? Så hyr mig til en fast aftalt pris på uge- eller månedsbasis efter behov.</p>
+          <p>Det giver jer stor fleksibilitet og en kommunikatør ved hånden, der hurtigt finder de gode historier, eksekverer på jeres strategi og som har erfaring i at rådgive ledelsen.</p>
+          <div class="ydelse-cta"><a href="index.html#kontakt">Hør mere om muligheden</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="ydelse reveal" id="indholdstjek">
-    <div>
-      <div class="ydelse-num mono">08</div>
-      <h2>Få viden om jeres indhold</h2>
-    </div>
-    <div class="ydelse-body">
-      <p>Afspejler jeres indhold, hvem der er jeres vigtigste interessent? Er der andre interessenter, I slet ikke rammer?</p>
-      <p>Før et samarbejde udarbejder jeg altid en analyse af jeres indhold på sociale medier, web, nyhedsbreve, presse mv. Analysen går et år tilbage. Det gør jeg for at blive klogere på jeres historier og budskaber.<br />Analysen giver jer gode råd til at optimere jeres kommunikationsindsats.</p>
-      <p>Analysen er gratis ved indgåelse af et længerevarende samarbejde. Den kan også købes, uden vi indgår samarbejde og koster 7.995 kr. ekskl. moms.</p>
-      <div class="ydelse-cta"><a href="index.html#kontakt">Bestil indholdstjek</a></div>
+    <button class="ydelse-toggle" aria-expanded="false" aria-controls="body-indholdstjek">
+      <div class="ydelse-head">
+        <div class="ydelse-num mono">08</div>
+        <h2>Få viden om jeres indhold</h2>
+        <p class="ydelse-teaser">En analyse af jeres nuværende indhold, der viser hvor I rammer — og hvor I ikke gør.</p>
+      </div>
+      <span class="ydelse-chevron" aria-hidden="true">+</span>
+    </button>
+    <div class="ydelse-collapse" id="body-indholdstjek">
+      <div class="ydelse-collapse-inner">
+        <div class="ydelse-body">
+          <p>Afspejler jeres indhold, hvem der er jeres vigtigste interessent? Er der andre interessenter, I slet ikke rammer?</p>
+          <p>Før et samarbejde udarbejder jeg altid en analyse af jeres indhold på sociale medier, web, nyhedsbreve, presse mv. Analysen går et år tilbage. Det gør jeg for at blive klogere på jeres historier og budskaber.<br />Analysen giver jer gode råd til at optimere jeres kommunikationsindsats.</p>
+          <p>Analysen er gratis ved indgåelse af et længerevarende samarbejde. Den kan også købes, uden vi indgår samarbejde og koster 7.995 kr. ekskl. moms.</p>
+          <div class="ydelse-cta"><a href="index.html#kontakt">Bestil indholdstjek</a></div>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -321,6 +399,34 @@
     els.forEach(function(el){ io.observe(el); });
   })();
 
+  var ydelseItems = Array.prototype.slice.call(document.querySelectorAll('.ydelse'));
+
+  function openYdelse(item){
+    ydelseItems.forEach(function(other){
+      if (other === item) return;
+      other.classList.remove('open');
+      var otherToggle = other.querySelector('.ydelse-toggle');
+      if (otherToggle) otherToggle.setAttribute('aria-expanded', 'false');
+    });
+    item.classList.add('open');
+    var toggle = item.querySelector('.ydelse-toggle');
+    if (toggle) toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  ydelseItems.forEach(function(item){
+    var toggle = item.querySelector('.ydelse-toggle');
+    if (!toggle) return;
+    toggle.addEventListener('click', function(){
+      var isOpen = item.classList.contains('open');
+      if (isOpen) {
+        item.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      } else {
+        openYdelse(item);
+      }
+    });
+  });
+
   var menuToggle = document.getElementById('menuToggle');
   var mobileMenu = document.getElementById('mobileMenu');
 
@@ -364,9 +470,11 @@
     window.scrollTo(0, 0);
     if (history.replaceState) history.replaceState(null, '', location.pathname);
   } else if (location.hash) {
-    // Arriving with a #hash (e.g. index.html -> ydelser.html#priser): scroll smoothly instead of snapping.
+    // Arriving with a #hash (e.g. index.html -> ydelser.html#kernefortaelling): scroll smoothly instead of snapping.
     var landingId = location.hash.slice(1);
-    if (document.getElementById(landingId)) {
+    var landingEl = document.getElementById(landingId);
+    if (landingEl) {
+      if (landingEl.classList.contains('ydelse')) openYdelse(landingEl);
       window.scrollTo(0, 0);
       window.addEventListener('load', function(){
         setTimeout(function(){ smoothScrollTo(landingId); }, 50);
