@@ -5,11 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <script>if ('scrollRestoration' in history) { history.scrollRestoration = 'manual'; }</script>
 <title>Ydelser og priser – Tougaard Kommunikation</title>
-<meta name="description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, pressearbejde og mere." />
+<meta name="description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, presse og mere." />
 <meta name="theme-color" content="#F6F4ED" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Ydelser og priser – Tougaard Kommunikation" />
-<meta property="og:description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, pressearbejde og mere." />
+<meta property="og:description" content="Alle ydelser og priser hos Tougaard Kommunikation: kernefortælling, strategi, ledelsesrådgivning, digitalt indhold, mærkesager, presse og mere." />
 <meta property="og:locale" content="da_DK" />
 <meta name="twitter:card" content="summary" />
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%2316180F'/%3E%3Ccircle cx='72' cy='68' r='9' fill='%23C05A2B'/%3E%3Ctext x='30' y='68' font-family='Georgia,serif' font-size='58' fill='%23F6F4ED'%3ET%3C/text%3E%3C/svg%3E" />
@@ -168,7 +168,7 @@
       <button class="ydelse-tab" data-slug="ledelse-krisestyring" role="tab" aria-selected="false"><span class="num mono">03</span>Ledelsesrådgivning og krisestyring</button>
       <button class="ydelse-tab" data-slug="digitalt-indhold" role="tab" aria-selected="false"><span class="num mono">04</span>Digitalt indhold</button>
       <button class="ydelse-tab" data-slug="maerkesager" role="tab" aria-selected="false"><span class="num mono">05</span>Mærkesager</button>
-      <button class="ydelse-tab" data-slug="pressearbejde" role="tab" aria-selected="false"><span class="num mono">06</span>Pressearbejde</button>
+      <button class="ydelse-tab" data-slug="pressearbejde" role="tab" aria-selected="false"><span class="num mono">06</span>Presse</button>
       <button class="ydelse-tab" data-slug="hyr-kommunikator" role="tab" aria-selected="false"><span class="num mono">07</span>Hyr en erfaren kommunikatør</button>
       <button class="ydelse-tab" data-slug="indholdstjek" role="tab" aria-selected="false"><span class="num mono">08</span>Få viden om jeres indhold</button>
     </div>
@@ -224,11 +224,11 @@
     </div>
 
     <div class="ydelse-panel" data-slug="pressearbejde" role="tabpanel" hidden>
-      <h2>Pressearbejde</h2>
+      <h2>Presse</h2>
       <div class="ydelse-body">
         <p>Pressemeddelelsen er bestemt ikke død. Men håndværket skal gøres ordentligt. Jeg er naturligvis klar i spyttet, hvis din historie ikke har pressepotentiale.</p>
         <p>Som journalist og redaktør har jeg kylet tusindvis af pressemeddelelser direkte i skraldespanden. Typisk fordi de var alt for salgsorienterede og slet ikke ramte den rigtige målgruppe.<br />Som kommunikatør har jeg skrevet omkring 50 i tæt samarbejde med topledelsen, hvoraf flere er gået medie-viralt og har skabt stor PR-værdi.</p>
-        <p>Når I skal have skrevet en pressemeddelelse, kender jeg nyhedskriterierne i søvne og hvert et hjørne af det danske medielandskab. Jeg er vant til at pitche historier direkte til de mest relevante medier og bygge relationer op.</p>
+        <p>Når I skal have skrevet en pressemeddelelse, kender jeg nyhedskriterierne i søvne og hvert et hjørne af det danske medielandskab. Jeg er vant til at pitche historier direkte til de mest relevante medier og opbygger relationer.</p>
         <p>Som en ekstra service tilbyder jeg at være pressevagt for både private og offentlige virksomheder i weekender, så dine medarbejdere kan holde helt fri. En pressemeddelelse fås til en fast pris. Den sendes til udvalgte medier. Med i prisen følger pitch og opfølgning.</p>
         <p>Foto indgår ikke i prisen. Har du behov for en fotograf til portrætter og virksomhedsportræt, hjælper jeg dig gerne med at finde den rigtige.</p>
         <div class="ydelse-cta"><a href="index.html#kontakt">Kontakt mig for mere info</a></div>
@@ -282,7 +282,7 @@
       <div class="pris-card reveal">
         <div class="pris-titel">Udviklingsprojekt</div>
         <div class="pris-sub">F.eks. kernefortælling eller strategi</div>
-        <div class="pris-tal">Fast pris</div>
+        <div class="pris-tal">Få et tilbud</div>
       </div>
       <div class="pris-card reveal">
         <div class="pris-titel">Pressemeddelelse</div>
@@ -315,9 +315,11 @@
     }
     var io = new IntersectionObserver(function(entries){
       entries.forEach(function(entry){
-        entry.target.classList.toggle('visible', entry.isIntersecting);
+        if (entry.intersectionRatio > 0.2) entry.target.classList.add('visible');
+        else if (entry.intersectionRatio < 0.05) entry.target.classList.remove('visible');
+        // else: inside dead zone, keep current state (prevents flicker from scroll jitter at the boundary)
       });
-    }, { threshold: 0.15 });
+    }, { threshold: [0, 0.05, 0.1, 0.15, 0.2, 0.25] });
     els.forEach(function(el){ io.observe(el); });
   })();
 
