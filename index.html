@@ -243,6 +243,10 @@
     .card-grid{ display:flex; grid-template-columns:none; justify-content:flex-start; overflow-x:auto; scroll-snap-type:x mandatory; scroll-padding-left:28px; scroll-padding-right:28px; gap:26px; padding-bottom:6px; margin:0 -20px; padding-left:28px; padding-right:96px; -webkit-overflow-scrolling:touch; scrollbar-width:none; }
     .card-grid::-webkit-scrollbar{ display:none; }
     .card{ flex:0 0 calc(100vw - 96px); scroll-snap-align:start; }
+    /* Scroll-triggered reveal doesn't work inside a horizontally-scrolling carousel: cards off-screen to the
+       right are clipped by overflow-x, so IntersectionObserver only fires (and animates) mid-swipe. Show them
+       immediately instead; the swipe motion itself is the reveal here. */
+    .card-grid .card.reveal{ opacity:1; transform:none; transition:border-color .3s ease, box-shadow .3s ease; }
     .carousel-dots{ display:flex; justify-content:center; gap:8px; margin-top:20px; }
     .carousel-dots .dot{ width:6px; height:6px; border-radius:50%; background:var(--line); transition:background .25s ease, transform .25s ease; }
     .carousel-dots .dot.active{ background:var(--clay); transform:scale(1.4); }
