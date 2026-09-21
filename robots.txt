@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://soeren-tougaard-hjemmeside.pages.dev/sitemap.xml
+Sitemap: https://tougaardkommunikation.dk/sitemap.xml
