@@ -163,6 +163,7 @@
   .step-dot{ width:13px; height:13px; border-radius:50%; background:var(--paper); border:1.5px solid var(--ink); margin-bottom:26px; position:relative; z-index:1; transition:background .25s ease, border-color .25s ease; }
   .step:first-child .step-dot{ background:var(--ink); }
   .step-dot.filled{ background:var(--clay); border-color:var(--clay); }
+  .timeline .step-dot.scroll-active{ background:var(--ink); border-color:var(--ink); }
   .timeline-progress{ position:absolute; top:6px; left:0; height:1px; width:0%; background:var(--clay); transition:width .35s cubic-bezier(.16,1,.3,1); z-index:0; }
   .step{ transition:opacity .25s ease; cursor:default; }
   .step.dimmed{ opacity:0.4; }
@@ -234,6 +235,7 @@
     .step{ display:contents; }
     .step.dimmed{ opacity:1; }
     .step-dot{ grid-column:1; grid-row:span 4; margin:4px 0 0; align-self:start; }
+    .step:first-child .step-dot{ background:var(--paper); border-color:var(--ink); }
     .step-label{ grid-column:2; }
     .step-num{ grid-column:2; font-size:26px; margin-bottom:10px; }
     .step h3{ grid-column:2; }
@@ -629,6 +631,56 @@
         if (dot) dot.classList.remove('filled');
       });
     });
+  })();
+
+  // Mobile: the active dot travels down the vertical timeline in sync with scroll position,
+  // so you can see it move step 1 -> 2 -> 3 ... as you scroll past the Processen section.
+  (function(){
+    var timeline = document.querySelector('.timeline');
+    var steps = timeline ? Array.prototype.slice.call(timeline.querySelectorAll('.step')) : [];
+    var dots = steps.map(function(s){ return s.querySelector('.step-dot'); });
+    if (!timeline || !steps.length) return;
+
+    var mq = window.matchMedia('(max-width: 900px)');
+    var ticking = false;
+    var enabled = false;
+
+    function updateActiveDot(){
+      ticking = false;
+      var viewportCenter = window.innerHeight / 2;
+      var closestIndex = 0;
+      var closestDist = Infinity;
+      dots.forEach(function(dot, i){
+        if (!dot) return;
+        var r = dot.getBoundingClientRect();
+        var dotCenter = r.top + r.height / 2;
+        var dist = Math.abs(dotCenter - viewportCenter);
+        if (dist < closestDist) { closestDist = dist; closestIndex = i; }
+      });
+      dots.forEach(function(dot, i){
+        if (dot) dot.classList.toggle('scroll-active', i === closestIndex);
+      });
+    }
+
+    function onScroll(){
+      if (!enabled || ticking) return;
+      ticking = true;
+      window.requestAnimationFrame(updateActiveDot);
+    }
+
+    function syncEnabled(){
+      enabled = mq.matches;
+      if (enabled) {
+        updateActiveDot();
+      } else {
+        dots.forEach(function(dot){ if (dot) dot.classList.remove('scroll-active'); });
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', syncEnabled);
+    if (mq.addEventListener) mq.addEventListener('change', syncEnabled);
+    syncEnabled();
   })();
 
   document.getElementById('kontakt-form').addEventListener('submit', function(e){
