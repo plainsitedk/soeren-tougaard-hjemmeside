@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Statistik – Tougaard Kommunikation</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:ital,wght@0,300..700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F6F4ED; --paper-raised:#FFFDF8; --paper-sunken:#EFECE2;
+    --line:#DDD9CB; --ink:#16180F; --ink-body:#3C3E33;
+    --muted:#5A5C50; --muted-light:#8A8A7C; --clay:#C05A2B;
+  }
+  * { box-sizing: border-box; }
+  html,body{ margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
+  .wrap{ max-width:640px; margin:0 auto; padding:60px 24px; }
+  h1{ font-family:'Libre Baskerville',Georgia,serif; font-weight:400; font-size:28px; letter-spacing:-0.02em; margin:0 0 8px; }
+  .sub{ font-size:14px; color:var(--muted); margin-bottom:44px; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  #login{ display:flex; flex-direction:column; gap:14px; max-width:320px; }
+  #login input{ font-family:Karla,sans-serif; font-size:15px; padding:13px 14px; background:var(--paper-raised); border:1px solid var(--line); border-radius:2px; color:var(--ink); outline:none; }
+  #login input:focus{ border-color:var(--clay); outline:2px solid var(--clay); outline-offset:2px; }
+  #login button{ font-family:Karla,sans-serif; font-weight:600; font-size:15px; padding:13px 20px; background:var(--clay); color:var(--paper-raised); border:1px solid var(--clay); border-radius:2px; cursor:pointer; }
+  #login button:hover{ background:var(--ink); border-color:var(--ink); }
+  #loginError{ display:none; color:var(--clay); font-size:13px; }
+
+  #dashboard{ display:none; }
+  .totals{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:48px; }
+  .total-card{ border:1px solid var(--line); background:var(--paper-raised); padding:22px 20px; }
+  .total-card .label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
+  .total-card .num{ font-family:'Libre Baskerville',Georgia,serif; font-size:34px; letter-spacing:-0.02em; }
+
+  .chart-label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
+  .chart{ display:flex; align-items:flex-end; gap:4px; height:140px; border-bottom:1px solid var(--line); padding-bottom:2px; }
+  .bar-wrap{ flex:1; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; height:100%; }
+  .bar{ width:100%; max-width:22px; background:var(--clay); border-radius:1px 1px 0 0; min-height:2px; }
+  .bar-date{ font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--muted-light); margin-top:6px; writing-mode:vertical-rl; text-orientation:mixed; }
+
+  #error{ display:none; color:var(--clay); font-size:14px; }
+  .logout{ display:inline-block; margin-top:40px; font-size:13px; color:var(--muted); cursor:pointer; border-bottom:1px solid var(--line); }
+  .logout:hover{ color:var(--ink); border-bottom-color:var(--ink); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Statistik</h1>
+  <div class="sub mono">tougaardkommunikation.dk</div>
+
+  <form id="login">
+    <label for="pw" style="font-size:13px;font-weight:600;">Adgangskode</label>
+    <input type="password" id="pw" autocomplete="current-password" required />
+    <button type="submit">Log ind</button>
+    <div id="loginError">Forkert adgangskode.</div>
+  </form>
+
+  <div id="dashboard">
+    <div class="totals">
+      <div class="total-card">
+        <div class="label">I alt</div>
+        <div class="num" id="numTotal">–</div>
+      </div>
+      <div class="total-card">
+        <div class="label">Forside</div>
+        <div class="num" id="numIndex">–</div>
+      </div>
+      <div class="total-card">
+        <div class="label">Ydelser</div>
+        <div class="num" id="numYdelser">–</div>
+      </div>
+    </div>
+
+    <div class="chart-label">Seneste 14 dage</div>
+    <div class="chart" id="chart"></div>
+
+    <div class="logout" id="logout">Log ud</div>
+  </div>
+
+  <div id="error">Kunne ikke hente statistik. Prøv igen.</div>
+</div>
+
+<script>
+  var loginForm = document.getElementById('login');
+  var dashboard = document.getElementById('dashboard');
+  var loginError = document.getElementById('loginError');
+  var errorBox = document.getElementById('error');
+
+  function renderStats(data) {
+    document.getElementById('numTotal').textContent = data.total.toLocaleString('da-DK');
+    document.getElementById('numIndex').textContent = data.index.toLocaleString('da-DK');
+    document.getElementById('numYdelser').textContent = data.ydelser.toLocaleString('da-DK');
+
+    var max = Math.max.apply(null, data.daily.map(function(d){ return d.count; })) || 1;
+    var chart = document.getElementById('chart');
+    chart.innerHTML = '';
+    data.daily.forEach(function(d){
+      var wrap = document.createElement('div');
+      wrap.className = 'bar-wrap';
+      var bar = document.createElement('div');
+      bar.className = 'bar';
+      bar.style.height = Math.max(2, (d.count / max) * 100) + '%';
+      bar.title = d.date + ': ' + d.count;
+      var label = document.createElement('div');
+      label.className = 'bar-date';
+      label.textContent = d.date.slice(5);
+      wrap.appendChild(bar);
+      wrap.appendChild(label);
+      chart.appendChild(wrap);
+    });
+
+    loginForm.style.display = 'none';
+    dashboard.style.display = 'block';
+    errorBox.style.display = 'none';
+  }
+
+  function loadStats() {
+    fetch('/api/stats', { credentials: 'same-origin' })
+      .then(function(r){ return r.status === 200 ? r.json() : Promise.reject(r.status); })
+      .then(function(data){ if (data.ok) renderStats(data); else Promise.reject('unauthorized'); })
+      .catch(function(){ /* not logged in yet, show login form (default state) */ });
+  }
+
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var pw = document.getElementById('pw').value;
+    loginError.style.display = 'none';
+    fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ password: pw })
+    })
+      .then(function(r){ return r.json().then(function(d){ return { status: r.status, ok: d.ok }; }); })
+      .then(function(res){
+        if (res.ok) { loadStats(); }
+        else { loginError.style.display = 'block'; }
+      })
+      .catch(function(){ loginError.style.display = 'block'; });
+  });
+
+  document.getElementById('logout').addEventListener('click', function(){
+    document.cookie = 'stats_session=; Path=/; Max-Age=0';
+    dashboard.style.display = 'none';
+    loginForm.style.display = 'flex';
+    document.getElementById('pw').value = '';
+  });
+
+  loadStats();
+</script>
+
+</body>
+</html>

@@ -416,6 +416,13 @@
     });
   }
 
+  // Simple aggregate visit counter (no cookies, no IP storage) — see /stats.html.
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: 'ydelser' })
+  }).catch(function(){});
+
   // On reload (F5 / cmd+R), always start at the top instead of restoring scroll position or jumping to a stale #hash.
   var navEntry = performance.getEntriesByType && performance.getEntriesByType('navigation')[0];
   var isReload = navEntry ? navEntry.type === 'reload' : (performance.navigation && performance.navigation.type === 1);

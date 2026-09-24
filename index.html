@@ -603,6 +603,13 @@
   window.addEventListener('resize', setTopbarHeight);
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(setTopbarHeight);
 
+  // Simple aggregate visit counter (no cookies, no IP storage) — see /stats.html.
+  fetch('/api/track', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ path: 'index' })
+  }).catch(function(){});
+
   (function(){
     var timeline = document.querySelector('.timeline');
     var progress = document.getElementById('timelineProgress');
