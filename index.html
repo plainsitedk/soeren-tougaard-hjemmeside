@@ -607,7 +607,7 @@
   fetch('/api/track', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ path: 'index' })
+    body: JSON.stringify({ path: 'index', referrer: document.referrer })
   }).catch(function(){});
 
   (function(){

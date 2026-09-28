@@ -38,6 +38,13 @@
   .bar{ width:100%; max-width:22px; background:var(--clay); border-radius:1px 1px 0 0; min-height:2px; }
   .bar-date{ font-family:'JetBrains Mono',monospace; font-size:8.5px; color:var(--muted-light); margin-top:6px; writing-mode:vertical-rl; text-orientation:mixed; }
 
+  .refs{ margin-top:48px; }
+  .ref-row{ display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--line); }
+  .ref-row .name{ width:110px; flex-shrink:0; font-size:14px; text-transform:capitalize; }
+  .ref-row .track{ flex:1; height:8px; background:var(--paper-sunken); border-radius:1px; overflow:hidden; }
+  .ref-row .fill{ height:100%; background:var(--clay); }
+  .ref-row .count{ width:44px; flex-shrink:0; text-align:right; font-family:'JetBrains Mono',monospace; font-size:12.5px; color:var(--muted); }
+
   #error{ display:none; color:var(--clay); font-size:14px; }
   .logout{ display:inline-block; margin-top:40px; font-size:13px; color:var(--muted); cursor:pointer; border-bottom:1px solid var(--line); }
   .logout:hover{ color:var(--ink); border-bottom-color:var(--ink); }
@@ -75,6 +82,11 @@
     <div class="chart-label">Seneste 14 dage</div>
     <div class="chart" id="chart"></div>
 
+    <div class="refs">
+      <div class="chart-label">Hvor besøgende kommer fra</div>
+      <div id="refList"></div>
+    </div>
+
     <div class="logout" id="logout">Log ud</div>
   </div>
 
@@ -108,6 +120,35 @@
       wrap.appendChild(bar);
       wrap.appendChild(label);
       chart.appendChild(wrap);
+    });
+
+    var refLabels = { direct: 'Direkte', google: 'Google', bing: 'Bing', duckduckgo: 'DuckDuckGo', facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', twitter: 'X / Twitter', other: 'Andet' };
+    var refList = document.getElementById('refList');
+    refList.innerHTML = '';
+    var refs = data.referrers || [];
+    var refMax = Math.max.apply(null, refs.map(function(r){ return r.count; })) || 1;
+    if (!refs.length) {
+      refList.innerHTML = '<div style="font-size:13px;color:var(--muted-light);">Ingen data endnu.</div>';
+    }
+    refs.forEach(function(r){
+      var row = document.createElement('div');
+      row.className = 'ref-row';
+      var name = document.createElement('div');
+      name.className = 'name';
+      name.textContent = refLabels[r.source] || r.source;
+      var track = document.createElement('div');
+      track.className = 'track';
+      var fill = document.createElement('div');
+      fill.className = 'fill';
+      fill.style.width = Math.max(3, (r.count / refMax) * 100) + '%';
+      track.appendChild(fill);
+      var count = document.createElement('div');
+      count.className = 'count';
+      count.textContent = r.count.toLocaleString('da-DK');
+      row.appendChild(name);
+      row.appendChild(track);
+      row.appendChild(count);
+      refList.appendChild(row);
     });
 
     loginForm.style.display = 'none';

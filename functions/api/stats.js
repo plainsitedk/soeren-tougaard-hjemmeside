@@ -18,10 +18,13 @@ export async function onRequestGet(context) {
     });
   }
 
-  const [total, indexViews, ydelserViews] = await Promise.all([
+  const REF_BUCKETS = ['direct', 'google', 'bing', 'duckduckgo', 'facebook', 'instagram', 'linkedin', 'twitter', 'other'];
+
+  const [total, indexViews, ydelserViews, refCounts] = await Promise.all([
     env.TOUGAARD_STATS.get('views:total'),
     env.TOUGAARD_STATS.get('views:index'),
     env.TOUGAARD_STATS.get('views:ydelser'),
+    Promise.all(REF_BUCKETS.map((b) => env.TOUGAARD_STATS.get(`views:ref:${b}`))),
   ]);
 
   const days = [];
@@ -40,6 +43,9 @@ export async function onRequestGet(context) {
       index: parseInt(indexViews || '0', 10),
       ydelser: parseInt(ydelserViews || '0', 10),
       daily: days.map((d, i) => ({ date: d, count: parseInt(dayCounts[i] || '0', 10) })),
+      referrers: REF_BUCKETS.map((b, i) => ({ source: b, count: parseInt(refCounts[i] || '0', 10) }))
+        .filter((r) => r.count > 0)
+        .sort((a, b) => b.count - a.count),
     }),
     { status: 200, headers: { 'Content-Type': 'application/json' } }
   );
