@@ -19,12 +19,18 @@ export async function onRequestGet(context) {
   }
 
   const REF_BUCKETS = ['direct', 'google', 'bing', 'duckduckgo', 'facebook', 'instagram', 'linkedin', 'twitter', 'other'];
+  const HOUR_BUCKETS = ['morgen', 'eftermiddag', 'aften', 'nat'];
+  const YDELSE_SLUGS = ['kernefortaelling', 'kommunikationsstrategi', 'ledelse-krisestyring', 'digitalt-indhold', 'maerkesager', 'pressearbejde', 'hyr-kommunikator', 'indholdstjek'];
 
-  const [total, indexViews, ydelserViews, refCounts] = await Promise.all([
+  const [total, indexViews, ydelserViews, refCounts, deviceCounts, hourCounts, contactSubmits, ydelseCounts] = await Promise.all([
     env.TOUGAARD_STATS.get('views:total'),
     env.TOUGAARD_STATS.get('views:index'),
     env.TOUGAARD_STATS.get('views:ydelser'),
     Promise.all(REF_BUCKETS.map((b) => env.TOUGAARD_STATS.get(`views:ref:${b}`))),
+    Promise.all(['mobile', 'desktop'].map((d) => env.TOUGAARD_STATS.get(`views:device:${d}`))),
+    Promise.all(HOUR_BUCKETS.map((h) => env.TOUGAARD_STATS.get(`views:hour:${h}`))),
+    env.TOUGAARD_STATS.get('events:contact_submit'),
+    Promise.all(YDELSE_SLUGS.map((s) => env.TOUGAARD_STATS.get(`events:ydelse:${s}`))),
   ]);
 
   const days = [];
@@ -45,6 +51,15 @@ export async function onRequestGet(context) {
       daily: days.map((d, i) => ({ date: d, count: parseInt(dayCounts[i] || '0', 10) })),
       referrers: REF_BUCKETS.map((b, i) => ({ source: b, count: parseInt(refCounts[i] || '0', 10) }))
         .filter((r) => r.count > 0)
+        .sort((a, b) => b.count - a.count),
+      devices: {
+        mobile: parseInt(deviceCounts[0] || '0', 10),
+        desktop: parseInt(deviceCounts[1] || '0', 10),
+      },
+      hours: HOUR_BUCKETS.map((h, i) => ({ bucket: h, count: parseInt(hourCounts[i] || '0', 10) })),
+      contactSubmits: parseInt(contactSubmits || '0', 10),
+      ydelseClicks: YDELSE_SLUGS.map((s, i) => ({ slug: s, count: parseInt(ydelseCounts[i] || '0', 10) }))
+        .filter((y) => y.count > 0)
         .sort((a, b) => b.count - a.count),
     }),
     { status: 200, headers: { 'Content-Type': 'application/json' } }

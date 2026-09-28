@@ -377,7 +377,13 @@
 
   ydelseTabs.forEach(function(tab){
     tab.addEventListener('click', function(){
-      openYdelse(tab.getAttribute('data-slug'));
+      var slug = tab.getAttribute('data-slug');
+      openYdelse(slug);
+      fetch('/api/event', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'ydelse_click', slug: slug })
+      }).catch(function(){});
     });
   });
 

@@ -701,6 +701,11 @@
     button.disabled = true;
     button.textContent = 'Åbner mailklient…';
     document.getElementById('confirm').style.display = 'block';
+    fetch('/api/event', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ type: 'contact_submit' })
+    }).catch(function(){});
     window.location.href = 'mailto:soren@tougaardkommunikation.dk?subject=' + subject + '&body=' + body;
     setTimeout(function(){
       button.disabled = false;

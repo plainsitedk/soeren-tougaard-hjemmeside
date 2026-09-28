@@ -1,5 +1,7 @@
 // Records a page view. No IP addresses or cookies are stored here — only
-// aggregate counters (total, per-page, per-day, referrer source) so this stays GDPR-light.
+// aggregate counters (total, per-page, per-day, referrer, device, time of day) so this stays GDPR-light.
+import { isBot, deviceType, hourBucket, incrementKeys } from '../_lib.js';
+
 const REF_BUCKETS = {
   'google.': 'google',
   'bing.com': 'bing',
@@ -30,6 +32,11 @@ function bucketReferrer(referrer, ownHost) {
 export async function onRequestPost(context) {
   const { request, env } = context;
 
+  const userAgent = request.headers.get('User-Agent') || '';
+  if (isBot(userAgent)) {
+    return new Response(null, { status: 204 });
+  }
+
   let path = 'other';
   let referrer = '';
   try {
@@ -43,14 +50,19 @@ export async function onRequestPost(context) {
 
   const ownHost = new URL(request.url).hostname.replace(/^www\./, '');
   const refBucket = bucketReferrer(referrer, ownHost);
+  const now = new Date();
+  const today = now.toISOString().slice(0, 10);
 
-  const today = new Date().toISOString().slice(0, 10);
-  const keys = ['views:total', `views:${path}`, `views:day:${today}`, `views:ref:${refBucket}`];
+  const keys = [
+    'views:total',
+    `views:${path}`,
+    `views:day:${today}`,
+    `views:ref:${refBucket}`,
+    `views:device:${deviceType(userAgent)}`,
+    `views:hour:${hourBucket(now)}`,
+  ];
 
-  await Promise.all(keys.map(async (key) => {
-    const current = parseInt((await env.TOUGAARD_STATS.get(key)) || '0', 10);
-    await env.TOUGAARD_STATS.put(key, String(current + 1));
-  }));
+  await incrementKeys(env, keys);
 
   return new Response(null, { status: 204 });
 }

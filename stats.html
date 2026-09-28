@@ -27,10 +27,11 @@
   #loginError{ display:none; color:var(--clay); font-size:13px; }
 
   #dashboard{ display:none; }
-  .totals{ display:grid; grid-template-columns:repeat(3,1fr); gap:16px; margin-bottom:48px; }
-  .total-card{ border:1px solid var(--line); background:var(--paper-raised); padding:22px 20px; }
+  .totals{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:48px; }
+  .total-card{ border:1px solid var(--line); background:var(--paper-raised); padding:22px 16px; }
   .total-card .label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:10px; }
-  .total-card .num{ font-family:'Libre Baskerville',Georgia,serif; font-size:34px; letter-spacing:-0.02em; }
+  .total-card .num{ font-family:'Libre Baskerville',Georgia,serif; font-size:30px; letter-spacing:-0.02em; }
+  @media (max-width:480px){ .totals{ grid-template-columns:repeat(2,1fr); } }
 
   .chart-label{ font-family:'JetBrains Mono',monospace; font-size:10.5px; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:16px; }
   .chart{ display:flex; align-items:flex-end; gap:4px; height:140px; border-bottom:1px solid var(--line); padding-bottom:2px; }
@@ -77,6 +78,10 @@
         <div class="label">Ydelser</div>
         <div class="num" id="numYdelser">–</div>
       </div>
+      <div class="total-card">
+        <div class="label">Kontakt-klik</div>
+        <div class="num" id="numContact">–</div>
+      </div>
     </div>
 
     <div class="chart-label">Seneste 14 dage</div>
@@ -85,6 +90,21 @@
     <div class="refs">
       <div class="chart-label">Hvor besøgende kommer fra</div>
       <div id="refList"></div>
+    </div>
+
+    <div class="refs">
+      <div class="chart-label">Enhed</div>
+      <div id="deviceList"></div>
+    </div>
+
+    <div class="refs">
+      <div class="chart-label">Tidspunkt på dagen</div>
+      <div id="hourList"></div>
+    </div>
+
+    <div class="refs">
+      <div class="chart-label">Mest besøgte ydelse</div>
+      <div id="ydelseList"></div>
     </div>
 
     <div class="logout" id="logout">Log ud</div>
@@ -99,10 +119,41 @@
   var loginError = document.getElementById('loginError');
   var errorBox = document.getElementById('error');
 
+  function renderBarList(elId, rows, labels) {
+    var el = document.getElementById(elId);
+    el.innerHTML = '';
+    var max = Math.max.apply(null, rows.map(function(r){ return r.count; })) || 1;
+    if (!rows.length) {
+      el.innerHTML = '<div style="font-size:13px;color:var(--muted-light);">Ingen data endnu.</div>';
+      return;
+    }
+    rows.forEach(function(r){
+      var row = document.createElement('div');
+      row.className = 'ref-row';
+      var name = document.createElement('div');
+      name.className = 'name';
+      name.textContent = labels[r.key] || r.key;
+      var track = document.createElement('div');
+      track.className = 'track';
+      var fill = document.createElement('div');
+      fill.className = 'fill';
+      fill.style.width = Math.max(3, (r.count / max) * 100) + '%';
+      track.appendChild(fill);
+      var count = document.createElement('div');
+      count.className = 'count';
+      count.textContent = r.count.toLocaleString('da-DK');
+      row.appendChild(name);
+      row.appendChild(track);
+      row.appendChild(count);
+      el.appendChild(row);
+    });
+  }
+
   function renderStats(data) {
     document.getElementById('numTotal').textContent = data.total.toLocaleString('da-DK');
     document.getElementById('numIndex').textContent = data.index.toLocaleString('da-DK');
     document.getElementById('numYdelser').textContent = data.ydelser.toLocaleString('da-DK');
+    document.getElementById('numContact').textContent = (data.contactSubmits || 0).toLocaleString('da-DK');
 
     var max = Math.max.apply(null, data.daily.map(function(d){ return d.count; })) || 1;
     var chart = document.getElementById('chart');
@@ -123,33 +174,29 @@
     });
 
     var refLabels = { direct: 'Direkte', google: 'Google', bing: 'Bing', duckduckgo: 'DuckDuckGo', facebook: 'Facebook', instagram: 'Instagram', linkedin: 'LinkedIn', twitter: 'X / Twitter', other: 'Andet' };
-    var refList = document.getElementById('refList');
-    refList.innerHTML = '';
-    var refs = data.referrers || [];
-    var refMax = Math.max.apply(null, refs.map(function(r){ return r.count; })) || 1;
-    if (!refs.length) {
-      refList.innerHTML = '<div style="font-size:13px;color:var(--muted-light);">Ingen data endnu.</div>';
-    }
-    refs.forEach(function(r){
-      var row = document.createElement('div');
-      row.className = 'ref-row';
-      var name = document.createElement('div');
-      name.className = 'name';
-      name.textContent = refLabels[r.source] || r.source;
-      var track = document.createElement('div');
-      track.className = 'track';
-      var fill = document.createElement('div');
-      fill.className = 'fill';
-      fill.style.width = Math.max(3, (r.count / refMax) * 100) + '%';
-      track.appendChild(fill);
-      var count = document.createElement('div');
-      count.className = 'count';
-      count.textContent = r.count.toLocaleString('da-DK');
-      row.appendChild(name);
-      row.appendChild(track);
-      row.appendChild(count);
-      refList.appendChild(row);
-    });
+    renderBarList('refList', (data.referrers || []).map(function(r){ return { key: r.source, count: r.count }; }), refLabels);
+
+    var deviceRows = [
+      { key: 'mobile', count: (data.devices && data.devices.mobile) || 0 },
+      { key: 'desktop', count: (data.devices && data.devices.desktop) || 0 }
+    ].filter(function(d){ return d.count > 0; });
+    renderBarList('deviceList', deviceRows, { mobile: 'Mobil', desktop: 'Desktop' });
+
+    var hourLabels = { morgen: 'Morgen', eftermiddag: 'Eftermiddag', aften: 'Aften', nat: 'Nat' };
+    var hourRows = (data.hours || []).filter(function(h){ return h.count > 0; }).map(function(h){ return { key: h.bucket, count: h.count }; });
+    renderBarList('hourList', hourRows, hourLabels);
+
+    var ydelseLabels = {
+      'kernefortaelling': 'Kernefortælling',
+      'kommunikationsstrategi': 'Kommunikationsstrategi og plan',
+      'ledelse-krisestyring': 'Ledelsesrådgivning og krisestyring',
+      'digitalt-indhold': 'Digitalt indhold',
+      'maerkesager': 'Mærkesager',
+      'pressearbejde': 'Presse',
+      'hyr-kommunikator': 'Hyr en erfaren kommunikatør',
+      'indholdstjek': 'Få viden om jeres indhold'
+    };
+    renderBarList('ydelseList', (data.ydelseClicks || []).map(function(y){ return { key: y.slug, count: y.count }; }), ydelseLabels);
 
     loginForm.style.display = 'none';
     dashboard.style.display = 'block';
