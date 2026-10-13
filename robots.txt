@@ -1,6 +1,7 @@
 User-agent: *
 Allow: /
 Disallow: /stats.html
+Disallow: /blog-admin.html
 Disallow: /api/
 
 Sitemap: https://tougaardkommunikation.dk/sitemap.xml

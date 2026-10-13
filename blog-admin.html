@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="robots" content="noindex, nofollow" />
+<title>Nyheder – redigér</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Karla:ital,wght@0,300..700;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#F6F4ED; --paper-raised:#FFFDF8; --paper-sunken:#EFECE2;
+    --line:#DDD9CB; --ink:#16180F; --ink-body:#3C3E33;
+    --muted:#5A5C50; --muted-light:#8A8A7C; --clay:#C05A2B;
+  }
+  * { box-sizing: border-box; }
+  html,body{ margin:0; padding:0; background:var(--paper); color:var(--ink); font-family:Karla,system-ui,sans-serif; }
+  .wrap{ max-width:760px; margin:0 auto; padding:60px 24px 100px; }
+  h1{ font-family:'Libre Baskerville',Georgia,serif; font-weight:400; font-size:26px; letter-spacing:-0.02em; margin:0 0 8px; }
+  .sub{ font-size:14px; color:var(--muted); margin-bottom:40px; }
+  .mono{ font-family:'JetBrains Mono',monospace; }
+
+  label{ display:block; font-size:13px; font-weight:600; margin-bottom:6px; }
+  input[type=text], input[type=password], textarea{ width:100%; font-family:Karla,sans-serif; font-size:15px; padding:12px 13px; background:var(--paper-raised); border:1px solid var(--line); border-radius:2px; color:var(--ink); outline:none; }
+  input:focus, textarea:focus{ border-color:var(--clay); outline:2px solid var(--clay); outline-offset:2px; }
+  textarea{ resize:vertical; line-height:1.6; }
+
+  #login{ display:flex; flex-direction:column; gap:14px; max-width:320px; }
+  #login button{ font-family:Karla,sans-serif; font-weight:600; font-size:15px; padding:13px 20px; background:var(--clay); color:var(--paper-raised); border:1px solid var(--clay); border-radius:2px; cursor:pointer; }
+  #login button:hover{ background:var(--ink); border-color:var(--ink); }
+  #loginError{ display:none; color:var(--clay); font-size:13px; }
+
+  #admin{ display:none; }
+  .top-row{ display:flex; justify-content:space-between; align-items:center; margin-bottom:32px; }
+  .btn{ font-family:Karla,sans-serif; font-weight:600; font-size:13.5px; padding:10px 16px; border-radius:2px; cursor:pointer; border:1px solid var(--line); background:var(--paper-raised); color:var(--ink); }
+  .btn:hover{ border-color:var(--ink); }
+  .btn-primary{ background:var(--clay); color:var(--paper-raised); border-color:var(--clay); }
+  .btn-primary:hover{ background:var(--ink); border-color:var(--ink); }
+  .btn-danger{ color:#a33; border-color:#d9a3a3; background:var(--paper-raised); }
+  .btn-danger:hover{ background:#fdeeee; border-color:#a33; }
+  .logout{ font-size:13px; color:var(--muted); cursor:pointer; border-bottom:1px solid var(--line); }
+  .logout:hover{ color:var(--ink); border-bottom-color:var(--ink); }
+
+  .post-row{ display:flex; justify-content:space-between; align-items:center; gap:16px; padding:16px 0; border-bottom:1px solid var(--line); }
+  .post-row .meta{ min-width:0; }
+  .post-row .title{ font-size:15.5px; font-weight:600; margin-bottom:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+  .post-row .date{ font-size:12px; color:var(--muted-light); font-family:'JetBrains Mono',monospace; }
+  .post-row .actions{ display:flex; gap:8px; flex-shrink:0; }
+  .post-row .actions button{ font-size:12.5px; padding:7px 12px; }
+  .empty{ padding:30px 0; color:var(--muted); font-size:14px; }
+
+  #view-editor{ display:none; }
+  .field-group{ margin-bottom:22px; }
+  .field-row{ display:flex; gap:16px; }
+  .field-row .field-group{ flex:1; }
+  .hint{ font-size:12px; color:var(--muted-light); margin-top:5px; }
+
+  .toolbar{ display:flex; flex-wrap:wrap; gap:4px; padding:8px; border:1px solid var(--line); border-bottom:none; background:var(--paper-sunken); }
+  .tb-btn{ background:none; border:1px solid transparent; border-radius:2px; width:30px; height:30px; display:flex; align-items:center; justify-content:center; cursor:pointer; color:var(--ink-body); font-size:12px; font-weight:700; font-family:Karla,sans-serif; }
+  .tb-btn:hover{ background:var(--paper-raised); border-color:var(--line); }
+  .tb-btn.active{ background:var(--ink); color:var(--paper-raised); }
+  .tb-btn svg{ width:14px; height:14px; }
+  .toolbar-sep{ width:1px; background:var(--line); margin:4px 2px; }
+
+  #editor{ min-height:320px; padding:18px 20px; border:1px solid var(--line); background:var(--paper-raised); font-size:15.5px; line-height:1.7; color:var(--ink); outline:none; }
+  #editor:focus{ border-color:var(--clay); }
+  #editor:empty:before{ content:attr(data-placeholder); color:var(--muted-light); }
+  #editor h1{ font-family:'Libre Baskerville',Georgia,serif; font-size:1.6rem; font-weight:400; margin:.8em 0 .3em; }
+  #editor h2{ font-family:'Libre Baskerville',Georgia,serif; font-size:1.3rem; font-weight:400; margin:.7em 0 .3em; }
+  #editor h3{ font-size:1.05rem; font-weight:700; margin:.6em 0 .3em; }
+  #editor p{ margin:.4em 0; }
+  #editor ul, #editor ol{ margin:.4em 0 .4em 1.4rem; }
+  #editor blockquote{ border-left:2px solid var(--clay); padding-left:1rem; margin:.8rem 0; color:var(--muted); font-style:italic; }
+  #editor a{ color:var(--clay); text-decoration:underline; }
+
+  .editor-footer{ display:flex; justify-content:space-between; align-items:center; margin-top:20px; }
+  .editor-footer-left{ display:flex; gap:10px; align-items:center; }
+  #save-status{ display:none; align-items:center; gap:5px; font-size:12.5px; color:var(--olive,#4C5A34); }
+  #save-status.show{ display:flex; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <h1>Nyheder</h1>
+  <div class="sub mono">tougaardkommunikation.dk</div>
+
+  <form id="login">
+    <label for="pw">Adgangskode</label>
+    <input type="password" id="pw" autocomplete="current-password" required />
+    <button type="submit">Log ind</button>
+    <div id="loginError">Forkert adgangskode.</div>
+  </form>
+
+  <div id="admin">
+    <!-- LIST -->
+    <div id="view-list">
+      <div class="top-row">
+        <button class="btn btn-primary" onclick="newPost()">+ Nyt indlæg</button>
+        <span class="logout" id="logout">Log ud</span>
+      </div>
+      <div id="posts-list"></div>
+    </div>
+
+    <!-- EDITOR -->
+    <div id="view-editor">
+      <h2 id="editor-heading" style="font-family:'Libre Baskerville',Georgia,serif;font-weight:400;font-size:20px;margin-bottom:24px;">Nyt indlæg</h2>
+
+      <div class="field-group">
+        <label for="post-title">Titel</label>
+        <input type="text" id="post-title" placeholder="Titel på indlægget…" oninput="onTitleInput()" />
+      </div>
+
+      <div class="field-row">
+        <div class="field-group">
+          <label for="post-slug">URL-slug</label>
+          <input type="text" id="post-slug" placeholder="genereres automatisk…" />
+          <div class="hint">tougaardkommunikation.dk/nyheder/<span id="slug-preview" class="mono"></span></div>
+        </div>
+      </div>
+
+      <div class="field-group">
+        <label for="post-excerpt">Resumé (bruges i liste og Google-søgning, valgfrit)</label>
+        <textarea id="post-excerpt" rows="2" placeholder="Kort resumé — genereres automatisk fra indholdet hvis tomt…"></textarea>
+      </div>
+
+      <div class="field-group">
+        <label>Indhold</label>
+        <div class="toolbar" id="toolbar">
+          <button type="button" class="tb-btn" onclick="fmt('formatBlock','H1')" title="Overskrift 1">H1</button>
+          <button type="button" class="tb-btn" onclick="fmt('formatBlock','H2')" title="Overskrift 2">H2</button>
+          <button type="button" class="tb-btn" onclick="fmt('formatBlock','P')" title="Normal tekst">P</button>
+          <div class="toolbar-sep"></div>
+          <button type="button" class="tb-btn" id="tb-bold" onclick="fmt('bold')" title="Fed"><b>B</b></button>
+          <button type="button" class="tb-btn" id="tb-italic" onclick="fmt('italic')" title="Kursiv"><i>I</i></button>
+          <button type="button" class="tb-btn" id="tb-underline" onclick="fmt('underline')" title="Understreget"><u>U</u></button>
+          <div class="toolbar-sep"></div>
+          <button type="button" class="tb-btn" onclick="fmt('insertUnorderedList')" title="Punktliste">•</button>
+          <button type="button" class="tb-btn" onclick="fmt('insertOrderedList')" title="Nummereret liste">1.</button>
+          <button type="button" class="tb-btn" onclick="fmt('formatBlock','BLOCKQUOTE')" title="Citat">”</button>
+          <div class="toolbar-sep"></div>
+          <button type="button" class="tb-btn" onclick="insertLink()" title="Indsæt link">🔗</button>
+          <button type="button" class="tb-btn" onclick="fmt('removeFormat')" title="Fjern formatering">✕</button>
+        </div>
+        <div id="editor" contenteditable="true" spellcheck="true" data-placeholder="Begynd at skrive her…"
+          onkeyup="updateToolbarState()" onmouseup="updateToolbarState()" onfocus="updateToolbarState()"></div>
+      </div>
+
+      <div class="editor-footer">
+        <div class="editor-footer-left">
+          <button class="btn btn-primary" onclick="savePost()">Gem indlæg</button>
+          <button class="btn" onclick="showList()">Annuller</button>
+          <div id="save-status">✓ Gemt</div>
+        </div>
+        <button class="btn btn-danger" id="delete-btn" onclick="deletePost()" style="display:none;">Slet indlæg</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var loginForm = document.getElementById('login');
+  var loginError = document.getElementById('loginError');
+  var adminEl = document.getElementById('admin');
+  var posts = [];
+  var editingId = null;
+  var slugManuallyEdited = false;
+
+  function slugify(s){
+    return (s || '').toLowerCase()
+      .replace(/æ/g,'ae').replace(/ø/g,'oe').replace(/å/g,'aa')
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'')
+      .replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,80);
+  }
+
+  function onTitleInput(){
+    if (!slugManuallyEdited) {
+      var slug = slugify(document.getElementById('post-title').value);
+      document.getElementById('post-slug').value = slug;
+      document.getElementById('slug-preview').textContent = slug;
+    }
+  }
+  document.getElementById('post-slug').addEventListener('input', function(){
+    slugManuallyEdited = true;
+    document.getElementById('slug-preview').textContent = slugify(this.value);
+  });
+
+  function loadPosts(){
+    return fetch('/api/posts', { credentials: 'same-origin' })
+      .then(function(r){ return r.status === 200 ? r.json() : Promise.reject(r.status); })
+      .then(function(data){
+        if (!data.ok) return Promise.reject('unauthorized');
+        posts = data.posts;
+        loginForm.style.display = 'none';
+        adminEl.style.display = 'block';
+        showList();
+      });
+  }
+
+  function renderList(){
+    var el = document.getElementById('posts-list');
+    if (!posts.length) {
+      el.innerHTML = '<div class="empty">Ingen indlæg endnu. Opret det første ovenfor.</div>';
+      return;
+    }
+    el.innerHTML = posts.map(function(p){
+      return '<div class="post-row">' +
+        '<div class="meta"><div class="title">' + escHtml(p.title) + '</div>' +
+        '<div class="date mono">' + formatDate(p.createdAt) + ' · /nyheder/' + escHtml(p.slug) + '</div></div>' +
+        '<div class="actions">' +
+          '<button class="btn" onclick="editPost(\'' + p.id + '\')">Redigér</button>' +
+        '</div></div>';
+    }).join('');
+  }
+
+  function showList(){
+    document.getElementById('view-list').style.display = 'block';
+    document.getElementById('view-editor').style.display = 'none';
+    renderList();
+  }
+
+  function newPost(){
+    editingId = null;
+    slugManuallyEdited = false;
+    document.getElementById('editor-heading').textContent = 'Nyt indlæg';
+    document.getElementById('post-title').value = '';
+    document.getElementById('post-slug').value = '';
+    document.getElementById('slug-preview').textContent = '';
+    document.getElementById('post-excerpt').value = '';
+    document.getElementById('editor').innerHTML = '';
+    document.getElementById('delete-btn').style.display = 'none';
+    document.getElementById('view-list').style.display = 'none';
+    document.getElementById('view-editor').style.display = 'block';
+  }
+
+  function editPost(id){
+    var p = posts.find(function(x){ return x.id === id; });
+    if (!p) return;
+    editingId = id;
+    slugManuallyEdited = true;
+    document.getElementById('editor-heading').textContent = 'Redigér indlæg';
+    document.getElementById('post-title').value = p.title;
+    document.getElementById('post-slug').value = p.slug;
+    document.getElementById('slug-preview').textContent = p.slug;
+    document.getElementById('post-excerpt').value = p.excerpt || '';
+    document.getElementById('editor').innerHTML = p.content || '';
+    document.getElementById('delete-btn').style.display = 'inline-block';
+    document.getElementById('view-list').style.display = 'none';
+    document.getElementById('view-editor').style.display = 'block';
+  }
+
+  function savePost(){
+    var title = document.getElementById('post-title').value.trim();
+    var content = document.getElementById('editor').innerHTML.trim();
+    if (!title || !content) { alert('Titel og indhold skal udfyldes.'); return; }
+    var body = {
+      title: title,
+      slug: document.getElementById('post-slug').value.trim(),
+      excerpt: document.getElementById('post-excerpt').value.trim(),
+      content: content
+    };
+    if (editingId) body.id = editingId;
+    fetch('/api/posts', {
+      method: editingId ? 'PUT' : 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify(body)
+    })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data.ok) { alert('Kunne ikke gemme: ' + (data.error || 'ukendt fejl')); return; }
+        var status = document.getElementById('save-status');
+        status.classList.add('show');
+        setTimeout(function(){ status.classList.remove('show'); }, 1800);
+        return loadPosts();
+      })
+      .catch(function(){ alert('Kunne ikke gemme. Prøv igen.'); });
+  }
+
+  function deletePost(){
+    if (!editingId) return;
+    if (!confirm('Slet dette indlæg? Kan ikke fortrydes.')) return;
+    fetch('/api/posts', {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ id: editingId })
+    })
+      .then(function(r){ return r.json(); })
+      .then(function(data){
+        if (!data.ok) { alert('Kunne ikke slette.'); return; }
+        loadPosts();
+      });
+  }
+
+  function formatDate(iso){
+    if (!iso) return '';
+    return new Date(iso).toLocaleDateString('da-DK', { day:'numeric', month:'long', year:'numeric' });
+  }
+  function escHtml(s){
+    return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
+  /* ── Rich text toolbar ── */
+  function fmt(cmd, val){
+    document.getElementById('editor').focus();
+    document.execCommand(cmd, false, val || null);
+    updateToolbarState();
+  }
+  function insertLink(){
+    var url = prompt('Link-adresse (https://…):');
+    if (url) fmt('createLink', url);
+  }
+  function updateToolbarState(){
+    try {
+      document.getElementById('tb-bold').classList.toggle('active', document.queryCommandState('bold'));
+      document.getElementById('tb-italic').classList.toggle('active', document.queryCommandState('italic'));
+      document.getElementById('tb-underline').classList.toggle('active', document.queryCommandState('underline'));
+    } catch (e) {}
+  }
+
+  /* ── Auth ── */
+  loginForm.addEventListener('submit', function(e){
+    e.preventDefault();
+    var pw = document.getElementById('pw').value;
+    loginError.style.display = 'none';
+    fetch('/api/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'same-origin',
+      body: JSON.stringify({ password: pw })
+    })
+      .then(function(r){ return r.json().then(function(d){ return { status: r.status, ok: d.ok }; }); })
+      .then(function(res){
+        if (res.ok) { loadPosts(); }
+        else { loginError.style.display = 'block'; }
+      })
+      .catch(function(){ loginError.style.display = 'block'; });
+  });
+
+  document.getElementById('logout').addEventListener('click', function(){
+    document.cookie = 'stats_session=; Path=/; Max-Age=0';
+    adminEl.style.display = 'none';
+    loginForm.style.display = 'flex';
+    document.getElementById('pw').value = '';
+  });
+
+  loadPosts().catch(function(){ /* not logged in yet, show login form (default state) */ });
+</script>
+
+</body>
+</html>
