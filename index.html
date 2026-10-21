@@ -180,14 +180,13 @@
   }
 
   .om-mig-grid{ display:grid; grid-template-columns:1fr 1.4fr; gap:60px; align-items:start; }
-  .om-mig-left{ position:sticky; top:calc(var(--topbar-h, 68px) + 20px); }
+  .om-mig-left{ position:sticky; top:calc(var(--topbar-h, 68px) + 20px); display:flex; flex-direction:column; gap:24px; max-width:320px; }
   .om-mig-grid h2{ font-size:clamp(1.5rem,3vw,2.0625rem); line-height:1.25; }
-  .om-mig-photo{ float:right; width:240px; margin:4px 0 20px 32px; overflow:hidden; border:1px solid var(--line); }
-  .om-mig-photo img{ width:100%; height:auto; aspect-ratio:3/4; object-fit:cover; object-position:center 15%; display:block; }
-  .om-mig-body{ display:flow-root; }
-  .om-mig-body p{ font-size:16px; line-height:1.75; color:var(--ink-body); max-width:62ch; margin-bottom:20px; }
-  .om-mig-body p:last-child{ margin-bottom:0; }
-  .om-mig-body p:first-of-type::first-letter{ font-family:'Libre Baskerville',Georgia,serif; font-size:60px; line-height:0.72; float:left; margin:2px 10px 0 0; color:var(--clay); }
+  .om-mig-photo{ overflow:hidden; border:1px solid var(--line); }
+  .om-mig-photo img{ width:100%; height:auto; aspect-ratio:4/5; object-fit:cover; object-position:center 12%; display:block; }
+  .om-mig-body{ display:flex; flex-direction:column; gap:20px; }
+  .om-mig-body p{ font-size:16px; line-height:1.75; color:var(--ink-body); max-width:62ch; }
+  .om-mig-body p:first-child::first-letter{ font-family:'Libre Baskerville',Georgia,serif; font-size:60px; line-height:0.72; float:left; margin:2px 10px 0 0; color:var(--clay); }
 
   .kunder-intro{ font-size:16px; line-height:1.65; color:var(--ink-body); max-width:60ch; margin-bottom:36px; }
   .kunder-grid{ display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid var(--line); border-left:1px solid var(--line); }
@@ -229,8 +228,7 @@
     .hero-img{ order:-1; height:340px; min-height:340px; }
     .hero-img img{ min-height:340px; }
     .kontakt, .om-mig-grid, .kunder-grid{ grid-template-columns:1fr; }
-    .om-mig-left{ position:static; margin-bottom:8px; }
-    .om-mig-photo{ float:none; width:100%; max-width:320px; margin:0 0 20px; }
+    .om-mig-left{ position:static; margin-bottom:8px; max-width:280px; }
     .processen-head{ margin-bottom:44px; }
 
     /* Vertical timeline: dot column + content column, connecting line runs down the left */
@@ -427,11 +425,11 @@
     <div class="om-mig-grid">
       <div class="om-mig-left">
         <h2 class="reveal">Erfaren kommunikatør, erhvervsjournalist og projektleder</h2>
-      </div>
-      <div class="om-mig-body reveal">
-        <div class="om-mig-photo">
+        <div class="om-mig-photo reveal">
           <img src="images/om-mig.jpg" alt="Søren Tougaard" loading="lazy" width="666" height="1000" />
         </div>
+      </div>
+      <div class="om-mig-body reveal">
         <p>Jeg bringer +15 års erfaring med ind i vores samarbejde fra job som kommunikationskonsulent, erhvervsjournalist og nyhedsredaktør.</p>
         <p>Jeg er uddannet journalist. Den gode historie er min platform. Overalt øjner jeg nye historier.</p>
         <p>Min erfaring har givet mig en stærk evne til at formidle klart til modtageren, luge ud i støj og buzzword, analysere komplekse problemstillinger, omsætte strategi til budskaber og rådgive ledelsen om forandringskommunikation og krisestyring.</p>
