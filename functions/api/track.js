@@ -43,7 +43,7 @@ export async function onRequestPost(context) {
     const body = await request.json();
     if (body && body.path === 'ydelser') path = 'ydelser';
     else if (body && body.path === 'index') path = 'index';
-    else if (body && body.path === 'nyheder') path = 'nyheder';
+    else if (body && body.path === 'indsigt') path = 'indsigt';
     if (body && typeof body.referrer === 'string') referrer = body.referrer;
   } catch (e) {
     // ignore malformed body, falls back to 'other'

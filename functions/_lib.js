@@ -51,7 +51,7 @@ export function formatDateDa(iso) {
   return new Date(iso).toLocaleDateString('da-DK', { day: 'numeric', month: 'long', year: 'numeric' });
 }
 
-// Shared page chrome (topbar, footer, design tokens) for the server-rendered /nyheder pages,
+// Shared page chrome (topbar, footer, design tokens) for the server-rendered /indsigt pages,
 // kept visually identical to index.html / ydelser.html so the blog doesn't look bolted on.
 export function renderPage({ title, description, canonical, bodyHtml, jsonLd, extraHead = '' }) {
   return `<!DOCTYPE html>
@@ -142,7 +142,7 @@ ${extraHead}
       <a href="/#om-mig">Om mig</a>
       <a href="/#tidligere-kunder">Tidligere kunder</a>
       <a href="/ydelser.html#priser">Priser</a>
-      <a href="/nyheder" class="active">Nyheder</a>
+      <a href="/indsigt" class="active">Indsigt</a>
       <a href="/#kontakt" class="btn btn-dark">Kontakt mig</a>
       <button type="button" class="menu-toggle" id="menuToggle" aria-label="Åbn menu" aria-expanded="false">☰</button>
     </div>
@@ -152,7 +152,7 @@ ${extraHead}
       <a href="/#om-mig">Om mig</a>
       <a href="/#tidligere-kunder">Tidligere kunder</a>
       <a href="/ydelser.html#priser">Priser</a>
-      <a href="/nyheder">Nyheder</a>
+      <a href="/indsigt">Indsigt</a>
     </div>
   </div>
 
@@ -181,7 +181,7 @@ ${bodyHtml}
   fetch('/api/track', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ path: 'nyheder', referrer: document.referrer })
+    body: JSON.stringify({ path: 'indsigt', referrer: document.referrer })
   }).catch(function(){});
 </script>
 </body>

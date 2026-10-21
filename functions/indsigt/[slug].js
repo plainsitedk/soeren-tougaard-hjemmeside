@@ -22,8 +22,8 @@ function notFound() {
   const html = renderPage({
     title: 'Indlæg ikke fundet – Tougaard Kommunikation',
     description: 'Dette indlæg findes ikke eller er blevet fjernet.',
-    canonical: 'https://tougaardkommunikation.dk/nyheder',
-    bodyHtml: `<h1>Indlæg ikke fundet</h1><p style="margin-top:14px;"><a href="/nyheder">← Tilbage til nyheder</a></p>`,
+    canonical: 'https://tougaardkommunikation.dk/indsigt',
+    bodyHtml: `<h1>Indlæg ikke fundet</h1><p style="margin-top:14px;"><a href="/indsigt">← Tilbage til indsigt</a></p>`,
   });
   return new Response(html, { status: 404, headers: { 'Content-Type': 'text/html; charset=utf-8' } });
 }
@@ -33,10 +33,10 @@ export async function onRequestGet({ env, params }) {
   const post = posts.find((p) => p.slug === params.slug);
   if (!post) return notFound();
 
-  const canonical = `https://tougaardkommunikation.dk/nyheder/${post.slug}`;
+  const canonical = `https://tougaardkommunikation.dk/indsigt/${post.slug}`;
 
   const bodyHtml = `
-    <a class="post-back" href="/nyheder">← Alle indlæg</a>
+    <a class="post-back" href="/indsigt">← Alle indlæg</a>
     <div class="post-single-date mono">${formatDateDa(post.createdAt)}</div>
     <h1 class="post-single-title">${escapeHtml(post.title)}</h1>
     <div class="prose">${post.content}</div>`;

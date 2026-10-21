@@ -3,13 +3,13 @@ import { getPosts } from './_lib.js';
 const STATIC_URLS = [
   { loc: 'https://tougaardkommunikation.dk/', changefreq: 'monthly', priority: '1.0' },
   { loc: 'https://tougaardkommunikation.dk/ydelser.html', changefreq: 'monthly', priority: '0.8' },
-  { loc: 'https://tougaardkommunikation.dk/nyheder', changefreq: 'weekly', priority: '0.7' },
+  { loc: 'https://tougaardkommunikation.dk/indsigt', changefreq: 'weekly', priority: '0.7' },
 ];
 
 export async function onRequestGet({ env }) {
   const posts = await getPosts(env);
   const postUrls = posts.map((p) => ({
-    loc: `https://tougaardkommunikation.dk/nyheder/${p.slug}`,
+    loc: `https://tougaardkommunikation.dk/indsigt/${p.slug}`,
     lastmod: (p.updatedAt || p.createdAt).slice(0, 10),
     changefreq: 'monthly',
     priority: '0.6',

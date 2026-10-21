@@ -1,5 +1,5 @@
-// Blog post CRUD. Public reads happen directly from KV in functions/nyheder.js and
-// functions/nyheder/[slug].js — this endpoint is only used by blog-admin.html and is
+// Blog post CRUD. Public reads happen directly from KV in functions/indsigt.js and
+// functions/indsigt/[slug].js — this endpoint is only used by blog-admin.html and is
 // fully auth-gated (same session cookie as /api/stats) so it also works as the
 // editor's login gate.
 async function sha256Hex(str) {
